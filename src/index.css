@@ -1,0 +1,21 @@
+.soundboard {
+	display: flex;
+	justify-content: center;
+}
+
+.sound-slider {
+	width: 400px;    
+}
+
+.playing-slider {
+	width:400px;
+}
+
+.soundboard-container {
+	margin: 15px;
+}
+
+.reset-wrapper {
+	display: flex;
+	justify-content: center;
+}
