@@ -174,6 +174,7 @@ class Board extends React.Component {
 			let soundObject = {
 				sound: new Audio(sounds[i]),
 				volume: 50,
+				name: getMP3Name(sounds[i]),
 				playing: false
 			}
 
