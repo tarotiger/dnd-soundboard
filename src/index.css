@@ -1,14 +1,16 @@
 .soundboard {
-	display: flex;
-	justify-content: center;
+	display: inline-flex;
+	justify-content: space-evenly;
 }
 
 .sound-slider {
+	display: flexbox;
 	width: 400px;    
 }
 
 .playing-slider {
-	width:400px;
+	display: flexbox;
+	width: 400px;
 }
 
 .soundboard-container {
