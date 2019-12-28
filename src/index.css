@@ -5,13 +5,15 @@
 	}
 
 	.sound-slider {
-		display: flexbox;
+		display: inline-flex;
 		width: 400px;
+		background-color: rgb(209, 203, 203) !important;
 	}
 
 	.playing-slider {
-		display: flexbox;
+		display: inline-flex;
 		width: 400px;
+		background-color: rgb(209, 203, 203) !important;
 	}
 
 	.soundboard-container {
@@ -32,11 +34,13 @@
 	.sound-slider {
 		display: inline-flex;
 		width: 400px;
+		background-color: grey;
 	}
 
 	.playing-slider {
 		display: inline-flex;
 		width: 400px;
+		background-color: grey;
 	}
 
 	.soundboard-container {
@@ -47,4 +51,31 @@
 		display: flex;
 		justify-content: center;
 	}
+}
+
+.campfire-animated {
+	background-position: center;
+	z-index: 1;
+	background: url("./assets/Campfire.gif");
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size:cover;
+	background-size:cover;
+}
+
+.campfire-still {
+	background-position: center; 
+	z-index: 1;
+	background: url("./assets/Campfire.png");
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size:cover;
+	background-size:cover;
+}
+
+.sound-title {
+	color: white;
+	text-emphasis: bold;
+	font-size: 18px;
 }

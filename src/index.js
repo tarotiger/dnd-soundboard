@@ -16,8 +16,10 @@ import haunted from './assets/Haunted.mp3';
 import resting from './assets/Resting.mp3';
 
 const sounds = [rain, campfire, cave, villageMorn, villageNight, torch, festival, haunted, resting];
+const ambient = [villageMorn, villageNight, festival, haunted, resting];
 
 sounds.sort();
+ambient.sort();
 
 class SoundSlider extends React.Component {
 	render() {
@@ -69,9 +71,9 @@ class Soundboard extends React.Component {
 						if (this.props.boards[step].playing) {
 							return(
 								<li
-									className="playing-slider list-group-item"
+									className={`playing-slider list-group-item ${val.name.toLowerCase()}-animated`}
 									key={step}>
-									<p> {val.name} </p>
+									<p className="sound-title"> {val.name} </p>
 									<button 
 										onClick={() => this.handleClick(step)}>
 										{
@@ -95,9 +97,9 @@ class Soundboard extends React.Component {
 						if (!this.props.boards[step].playing) {
 							return(
 								<li 
-									className="sound-slider list-group-item"
-									key = {step}>
-									<p> {val.name} </p>
+									className={`sound-slider list-group-item ${val.name.toLowerCase()}-still`}
+									key={step}>
+									<p className="sound-title"> {val.name} </p>
 									<button 
 										onClick={() => this.handleClick(step)}>
 										{
