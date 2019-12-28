@@ -34,14 +34,15 @@
 	.sound-slider {
 		display: inline-flex;
 		width: 400px;
-		background-color: grey;
+		background-color: rgb(209, 203, 203) !important;
 	}
 
 	.playing-slider {
 		display: inline-flex;
 		width: 400px;
-		background-color: grey;
+		background-color: rgb(209, 203, 203) !important;
 	}
+
 
 	.soundboard-container {
 		margin: 15px;
