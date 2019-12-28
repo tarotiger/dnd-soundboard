@@ -61,27 +61,6 @@ class Soundboard extends React.Component {
 	render() {
 		return (
 			<div className="soundboard">
-				<ul className="list-group soundboard-container">
-					{/* Adding objects to the soundboard */}
-					<p> Available Boards </p>
-					{sounds.map((val, step) => {
-						return(
-							<li 
-								className="sound-slider list-group-item"
-								key = {step}>
-								<p> {getMP3Name(val)} </p>
-								<button 
-									onClick={() => this.handleClick(step)}>
-									{
-										this.props.boards[step].playing ? '⏸️' : '▶️'
-									}
-								</button>  
-
-								{this.generateSlider(step)}
-							</li>
-						);
-					})}
-				</ul>
 				{/* Adding playing sounds to a separate soundtrack */}
 				<ul className="list-group soundboard-container">
 					<p> Playing... </p>
@@ -92,6 +71,32 @@ class Soundboard extends React.Component {
 								<li
 									className="playing-slider list-group-item"
 									key={step}>
+									<p> {val.name} </p>
+									<button 
+										onClick={() => this.handleClick(step)}>
+										{
+											this.props.boards[step].playing ? '⏸️' : '▶️'
+										}
+									</button>  
+
+									{this.generateSlider(step)}
+								</li>
+							);
+						} else {
+							return(null);
+						}
+					})}
+				</ul>
+				<ul className="list-group soundboard-container">
+					{/* Adding objects to the soundboard */}
+					<p> Available Boards </p>
+					{this.props.boards.map((val, step) => {
+						// Adds sound if it isn't playing
+						if (!this.props.boards[step].playing) {
+							return(
+								<li 
+									className="sound-slider list-group-item"
+									key = {step}>
 									<p> {val.name} </p>
 									<button 
 										onClick={() => this.handleClick(step)}>
