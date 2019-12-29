@@ -73,5 +73,47 @@
 .sound-title {
 	color: white;
 	text-emphasis: bold;
-	font-size: 18px;
+	font-size: 18px; 
+}
+
+.slide-out-animation {
+	-webkit-animation-name: slide-out;
+	-webkit-animation-duration: 0.5s;
+	-webkit-animation-fill-mode: forwards;
+	animation-name: slide-out;
+	animation-duration: 0.5s; 
+	animation-fill-mode: fowards;
+}
+
+.slide-in-animation {
+	-webkit-animation-name: slide-in;
+	-webkit-animation-duration: 0.5s;
+	-webkit-animation-fill-mode: forwards;
+	animation-name: slide-in;
+	animation-duration: 0.5s;
+	animation-fill-mode: fowards;
+}
+
+@keyframes slide-in {
+	0% {
+		left: 100px;
+		opacity: 0;
+	}
+	100% {
+		left: 0px;
+		opacity: 1;
+	}
+}
+
+@keyframes slide-out {
+	0% {
+		left: 0px;
+		opacity: 1;
+	}
+	100% {
+		left: -100px;
+		opacity: 0;
+		display: none;
+		visibility: hidden;
+	}
 }
