@@ -39,7 +39,7 @@ class Soundboard extends React.Component {
 		super(props);
 
 		this.state = {
-			in: false
+			animated: Array(sounds.length).fill(false)
 		}
 	}
 
@@ -55,66 +55,95 @@ class Soundboard extends React.Component {
 
 	handleClick(i) {
 		this.props.onClick(i);
+
+		setTimeout(() => {
+			let animated = this.state.animated.slice();
+			animated[i] = !animated[i];
+
+			this.setState({
+				animated: animated
+			})
+		}, 450);
+	}
+
+	reset() {
+		this.props.reset();
+		let animated = Array(sounds.length).fill(false);
+
 		this.setState({
-			in: !this.state.in
+			animated: animated
 		})
 	}
 
 	render() {
 		return (
-			<div className="soundboard">
-				{/* Adding playing sounds to a separate soundtrack */}
-				<ul className="list-group soundboard-container">
-					<p> Playing... </p>
-					{this.props.boards.map((val, step) => {
-						// Adds sound that is current playing 
-						if (this.props.boards[step].playing) {
-							return(
-								<li
-									className={`playing-slider list-group-item ${val.name.toLowerCase()}-animated`}
-									key={step}>
-									<p className="sound-title"> {val.name} </p>
-									<button 
-										onClick={() => this.handleClick(step)}>
-										{
-											this.props.boards[step].playing ? '⏸️' : '▶️'
-										}
-									</button>  
+			<div>
+				<div className="reset-wrapper">
+					<button type="button" className="btn btn-primary btn-lg" onClick={() => {this.reset()}}>
+						Reset sounds 
+					</button>
+				</div>
+				<div className="soundboard">
+					{/* Adding playing sounds to a separate soundtrack */}
+					<ul className="list-group soundboard-container">
+						<p> Playing... </p>
+						{this.props.boards.map((val, step) => {
+							const isPlaying = this.props.boards[step].playing;
 
-									{this.generateSlider(step)}
-								</li>
-							);
-						} else {
-							return(null);
-						}
-					})}
-				</ul>
-				<ul className="list-group soundboard-container">
-					{/* Adding objects to the soundboard */}
-					<p> Available Boards </p>
-					{this.props.boards.map((val, step) => {
-						// Adds sound if it isn't playing
-						if (!this.props.boards[step].playing) {
-							return(
-								<li 
-									className={`sound-slider list-group-item ${val.name.toLowerCase()}-still`}
-									key={step}>
-									<p className="sound-title"> {val.name} </p>
-									<button 
-										onClick={() => this.handleClick(step)}>
-										{
-											this.props.boards[step].playing ? '⏸️' : '▶️'
+							if (this.state.animated[step]) {
+								return(
+									<li
+										className={
+											`playing-slider list-group-item ${val.name.toLowerCase()}-animated ${isPlaying ? "slide-in-animation" : "slide-out-animation"}`
 										}
-									</button>  
+										key={step}>
+										<p className="sound-title"> {val.name} </p>
+										<button 
+											onClick={() => this.handleClick(step)}>
+											{
+												this.props.boards[step].playing ? '⏸️' : '▶️'
+											}
+										</button>  
 
-									{this.generateSlider(step)}
-								</li>
-							);
-						} else {
-							return(null);
-						}
-					})}
-				</ul>
+										{this.generateSlider(step)}
+									</li>
+								);
+							} else {
+								return(null);
+							}
+						})}
+					</ul>
+					<ul className="list-group soundboard-container">
+						{/* Adding objects to the soundboard */}
+						<p> Available Boards </p>
+						{this.props.boards.map((val, step) => {
+							const isPlaying = this.props.boards[step].playing;
+							
+							if (this.state.animated[step]) {
+								return(null);
+							} else {
+								// Adds sound if it isn't playing
+								return(
+									<li 
+										className = {
+											`sound-slider list-group-item ${val.name.toLowerCase()}-still ${isPlaying ? "slide-out-animation" : "slide-in-animation"}`
+										}
+										key={step}>
+										<p className="sound-title"> {val.name} </p>
+										<button 
+											onClick={() => this.handleClick(step)}>
+											{
+												this.props.boards[step].playing ? '⏸️' : '▶️'
+											}
+										</button>  
+
+										{this.generateSlider(step)}
+									</li>
+								);
+							}
+						})}
+					</ul>
+				</div>
 			</div>
 		);
 	}
@@ -207,15 +236,11 @@ class Board extends React.Component {
 						</p>
 					</div>
 				</div>
-				<div className="reset-wrapper">
-					<button type="button" className="btn btn-primary btn-lg" onClick={() => {this.reset()}}>
-						Reset sounds 
-					</button>
-				</div>
 				<Soundboard
 					boards={this.state.sound}
 					onChange={(i, event) => this.onSliderChange(i, event)}
 					onClick={(i) => this.handleClick(i)}
+					reset={() => this.reset()}
 				/>
 			</div>
 		);
