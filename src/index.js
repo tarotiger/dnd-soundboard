@@ -37,7 +37,9 @@ class Soundboard extends React.Component {
 		super(props);
 
 		this.state = {
-			animated: Array(sounds.length).fill(false)
+			animated: Array(sounds.length).fill(false),
+			query: "",
+			displayed: Array(sounds.length).fill(true)
 		}
 	}
 
@@ -66,17 +68,53 @@ class Soundboard extends React.Component {
 
 	reset() {
 		this.props.reset();
-		let animated = Array(sounds.length).fill(false);
 
 		this.setState({
-			animated: animated
+			animated: Array(sounds.length).fill(false),
+			query: "",
+			displayed: Array(sounds.length).fill(true)
 		})
 	}
 
+	handleChange(event) {
+		this.setState({
+			query: event.target.value.toLowerCase()
+		});
+	}
+
+	handleSubmit(event) {
+		event.preventDefault();
+
+		let displayed = Array(sounds.length).fill(true);
+
+		for (let i = 0; i < sounds.length; i++) {
+			if (!this.props.boards[i].name.toLowerCase().includes(this.state.query)) {
+				displayed[i] = false; 
+			}
+		}
+
+		console.log(displayed);
+
+		this.setState({
+			query: "",
+			displayed: displayed
+		});
+	}
+
 	render() {
+		console.log(this.state);
 		return (
 			<div>
 				<div className="reset-wrapper">
+					<form onSubmit={(event) => this.handleSubmit(event)}>
+						<input 
+							type="text" 
+							className="form-control" 
+							placeholder="Search..."
+							value={this.state.query}
+							onChange={(event) => this.handleChange(event)}
+						/>
+					</form>
 					<button type="button" className="btn btn-primary btn-lg" onClick={() => {this.reset()}}>
 						Reset sounds 
 					</button>
@@ -88,7 +126,7 @@ class Soundboard extends React.Component {
 						{this.props.boards.map((val, step) => {
 							const isPlaying = this.props.boards[step].playing;
 
-							if (this.state.animated[step]) {
+							if (this.state.animated[step] && this.state.displayed[step]) {
 								return(
 									<li
 										className={
@@ -117,7 +155,7 @@ class Soundboard extends React.Component {
 						{this.props.boards.map((val, step) => {
 							const isPlaying = this.props.boards[step].playing;
 							
-							if (this.state.animated[step]) {
+							if (this.state.animated[step] || !this.state.displayed[step]) {
 								return(null);
 							} else {
 								// Adds sound if it isn't playing
