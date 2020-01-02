@@ -16,7 +16,7 @@
 	}
 
 	.reset-wrapper {
-		display: flex;
+		display: flexbox;
 		justify-content: space-evenly;
 	}
 }
