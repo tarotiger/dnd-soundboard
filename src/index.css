@@ -70,10 +70,136 @@
 	background-size:cover;
 }
 
+.cave-animated {
+	background-position: center;
+	z-index: 1;
+	background: url("./assets/Cave.gif");
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.cave-still {
+	background-position: center;
+	z-index: 1;
+	background: url("./assets/Cave.png");
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.festival-animated {
+	background-position: center;
+	z-index: 1;
+	background: url("./assets/Festival.gif");
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.festival-still {
+	background-position: center;
+	z-index: 1;
+	background: url("./assets/Festival.png");
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.haunted-animated {
+	background-position: center;
+	z-index: 1;
+	background: url("./assets/Haunted.gif");
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.haunted-still {
+	background-position: center;
+	z-index: 1;
+	background: url("./assets/Haunted.png");
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.rain-animated {
+	background-position: center;
+	z-index: 1;
+	background: url("./assets/Rain.gif");
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.rain-still {
+	background-position: center;
+	z-index: 1;
+	background: url("./assets/Rain.png");
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.torch-animated {
+	background-position: center;
+	z-index: 1;
+	background: url("./assets/Torch.gif");
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.torch-still {
+	background-position: center;
+	z-index: 1;
+	background: url("./assets/Torch.png");
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.night-animated {
+	background-position: center;
+	z-index: 1;
+	background: url("./assets/Night.gif");
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.night-still {
+	background-position: center;
+	z-index: 1;
+	background: url("./assets/Night.png");
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
 .sound-title {
 	color: white;
-	text-emphasis: bold;
-	font-size: 18px; 
+	font-size: 18px;
+	mix-blend-mode: difference;
 }
 
 .slide-out-animation {

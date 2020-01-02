@@ -8,15 +8,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import rain from './assets/Rain.mp3';
 import campfire from './assets/Campfire.mp3';
 import cave from './assets/Cave.mp3';
-import villageMorn from './assets/Village (morning).mp3';
-import villageNight from './assets/Village (night).mp3';
+import night from './assets/Night.mp3';
 import torch from './assets/Torch.mp3';
 import festival from './assets/Festival.mp3';
 import haunted from './assets/Haunted.mp3';
-import resting from './assets/Resting.mp3';
 
-const sounds = [rain, campfire, cave, villageMorn, villageNight, torch, festival, haunted, resting];
-const ambient = [villageMorn, villageNight, festival, haunted, resting];
+const sounds = [rain, campfire, cave, night, torch, festival, haunted];
+const ambient = [night, festival, haunted];
 
 sounds.sort();
 ambient.sort();
