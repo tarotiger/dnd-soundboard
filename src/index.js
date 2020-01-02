@@ -126,7 +126,7 @@ class Soundboard extends React.Component {
 						{this.props.boards.map((val, step) => {
 							const isPlaying = this.props.boards[step].playing;
 
-							if (this.state.animated[step] && this.state.displayed[step]) {
+							if (this.state.animated[step]) {
 								return(
 									<li
 										className={
