@@ -15,6 +15,7 @@ import haunted from './assets/Haunted.mp3';
 
 const sounds = [rain, campfire, cave, night, torch, festival, haunted];
 const ambient = [night, festival, haunted];
+const AUDIO_SENSITIVITY = 100 / 3; 
 
 sounds.sort();
 ambient.sort();
@@ -44,7 +45,8 @@ class Soundboard extends React.Component {
 	}
 
 	generateSlider(i) {
-		let volume = this.props.boards[i].volume;
+		console.log(this.props.boards[i].soundVolume.gain.value);
+		let volume = this.props.boards[i].soundVolume.gain.value * AUDIO_SENSITIVITY;
 		return (
 			<SoundSlider 
 				volume={volume}
@@ -77,8 +79,17 @@ class Soundboard extends React.Component {
 	}
 
 	handleChange(event) {
+		let displayed = Array(sounds.length).fill(true);
+
+		for (let i = 0; i < sounds.length; i++) {
+			if (!this.props.boards[i].name.toLowerCase().includes(event.target.value.toLowerCase())) {
+				displayed[i] = false;
+			}
+		}
+
 		this.setState({
-			query: event.target.value.toLowerCase()
+			query: event.target.value,
+			displayed: displayed 
 		});
 	}
 
@@ -93,23 +104,20 @@ class Soundboard extends React.Component {
 			}
 		}
 
-		console.log(displayed);
-
 		this.setState({
-			query: "",
+			query: this.state.query.toLowerCase(),
 			displayed: displayed
 		});
 	}
 
 	render() {
-		console.log(this.state);
 		return (
 			<div>
 				<div className="reset-wrapper">
 					<form onSubmit={(event) => this.handleSubmit(event)}>
 						<input 
 							type="text" 
-							className="form-control" 
+							className="form-control search" 
 							placeholder="Search..."
 							value={this.state.query}
 							onChange={(event) => this.handleChange(event)}
@@ -126,7 +134,7 @@ class Soundboard extends React.Component {
 						{this.props.boards.map((val, step) => {
 							const isPlaying = this.props.boards[step].playing;
 
-							if (this.state.animated[step]) {
+							if (this.state.animated[step] && this.state.displayed[step]) {
 								return(
 									<li
 										className={
@@ -191,14 +199,7 @@ class Board extends React.Component {
 
 		let sound = [];
 		for (let i = 0; i < sounds.length; i++) {
-			let soundObject = {
-				sound: new Audio(sounds[i]),
-				volume: 50,
-				name: getMP3Name(sounds[i]),
-				playing: false
-			}
-
-			sound.push(soundObject);
+			sound.push(createAudioElement(sounds[i]));
 		}
 
 		this.state = {
@@ -209,23 +210,25 @@ class Board extends React.Component {
 
 	onSliderChange(i, event) {
 		let sound = this.state.sound.slice();
-		sound[i].volume = event;
-		sound[i].sound.volume = event/100;
+		sound[i].soundVolume.gain.value = event / AUDIO_SENSITIVITY;
 		this.setState({
 			sound: sound
 		})
-		console.log(sound);
 	}
 
 	handleClick(i) {
 		let sound = this.state.sound.slice();
+
+		// Check if context is in a suspended state 
+		if (sound[i].soundContext === 'suspended') {
+			sound[i].soundContext.resume();
+		}
 
 		// Toggle audio status 
 		if (sound[i].playing) {
 			sound[i].sound.pause();
 			sound[i].playing = false;
 		} else {
-			sound[i].sound.loop = true;
 			sound[i].sound.play();
 			sound[i].playing = true; 
 		}
@@ -243,14 +246,7 @@ class Board extends React.Component {
 
 		let sound = [];
 		for (let i = 0; i < sounds.length; i++) {
-			let soundObject = {
-				sound: new Audio(sounds[i]),
-				volume: 50,
-				name: getMP3Name(sounds[i]),
-				playing: false
-			}
-
-			sound.push(soundObject);
+			sound.push(createAudioElement(sounds[i]));
 		}
 
 		this.setState({
@@ -259,7 +255,6 @@ class Board extends React.Component {
 	}
 
 	render() {
-		console.log(rain);
 		return (
 			<div>
 				<div className="jumbotron jumbotron-fluid">
@@ -288,6 +283,33 @@ class Board extends React.Component {
 // Returns the name of the mp3 file from import 
 const getMP3Name = (importName) => {
 	return importName.split("/")[3].split(".")[0];
+}
+
+const createAudioElement = (src) => {
+	// Dynamically generate audio elements 
+	let audioDOM = document.createElement("audio");
+	audioDOM.src = src;
+	audioDOM.type = "audio/*";
+
+	// Uses Web Audio API to increase volume sensitivity 
+	const audio = new AudioContext();
+	const track = audio.createMediaElementSource(audioDOM);
+	track.loop = true;
+
+	const gainNode = audio.createGain();
+	gainNode.gain.value = 1.5;
+
+	track.connect(gainNode);
+	gainNode.connect(audio.destination);
+
+	return {
+		sound: audioDOM,
+		soundVolume: gainNode,
+		soundContext: audio,
+		volume: 50,
+		name: getMP3Name(src),
+		playing: false
+	}
 }
 
 ReactDOM.render(
