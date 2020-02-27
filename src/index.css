@@ -1,4 +1,4 @@
-@media only screen and (min-device-width: 320px) {
+@media only screen and (max-device-width: 991px) {
 	.soundboard {
 		display: flexbox;
 	}
@@ -17,11 +17,14 @@
 
 	.reset-wrapper {
 		display: flexbox;
-		justify-content: space-evenly;
 	}
 }
 
 @media only screen and (min-device-width: 992px) {
+	.main {
+		justify-content: space-between;
+	}
+
 	.soundboard {
 		display: flex;
 		justify-content: center;
@@ -39,13 +42,33 @@
 		background-color: rgb(209, 203, 203) !important;
 	}
 
-	.soundboard-container {
-		margin: 15px;
+	.available-soundboard-container {
+		position: absolute;
+		left: 42px;
+		padding-top: 15px;
+	}
+
+	.playing-soundboard-container {
+		position: absolute;
+		padding-top: 15px;
+		left: 552px;
 	}
 
 	.reset-wrapper {
 		display: flex;
-		justify-content: space-evenly;
+	}
+
+	.search {
+		display: flex; 
+		margin-left: 40px;
+		margin-right: 300px;
+		width: 20% !important;
+	}
+
+	.reset {
+		margin: auto; 
+		margin-top: 10px; 
+		margin-bottom: 10px; 
 	}
 }
 
@@ -218,6 +241,11 @@
 	animation-name: slide-in;
 	animation-duration: 0.5s;
 	animation-fill-mode: fowards;
+}
+
+body {
+	/* background-image: url("./assets/Hoard-Cover.jpg");
+	background-size: cover; */
 }
 
 @keyframes slide-in {
