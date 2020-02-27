@@ -20,179 +20,6 @@ const AUDIO_SENSITIVITY = 100 / 3;
 sounds.sort();
 ambient.sort();
 
-class SoundSlider extends React.Component {
-	render() {
-		return(
-			<Slider
-				min={0}
-				max={100}
-				value={this.props.volume}
-				onChange={this.props.onChange}
-			/>
-		)
-	}
-}
-
-class Soundboard extends React.Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			animated: Array(sounds.length).fill(false),
-			query: "",
-			displayed: Array(sounds.length).fill(true)
-		}
-	}
-
-	generateSlider(i) {
-		console.log(this.props.boards[i].soundVolume.gain.value);
-		let volume = this.props.boards[i].soundVolume.gain.value * AUDIO_SENSITIVITY;
-		return (
-			<SoundSlider 
-				volume={volume}
-				onChange={(event) => this.props.onChange(i, event)}
-			/>
-		)
-	}
-
-	handleClick(i) {
-		this.props.onClick(i);
-
-		setTimeout(() => {
-			let animated = this.state.animated.slice();
-			animated[i] = !animated[i];
-
-			this.setState({
-				animated: animated
-			})
-		}, 450);
-	}
-
-	reset() {
-		this.props.reset();
-
-		this.setState({
-			animated: Array(sounds.length).fill(false),
-			query: "",
-			displayed: Array(sounds.length).fill(true)
-		})
-	}
-
-	handleChange(event) {
-		let displayed = Array(sounds.length).fill(true);
-
-		for (let i = 0; i < sounds.length; i++) {
-			if (!this.props.boards[i].name.toLowerCase().includes(event.target.value.toLowerCase())) {
-				displayed[i] = false;
-			}
-		}
-
-		this.setState({
-			query: event.target.value,
-			displayed: displayed 
-		});
-	}
-
-	handleSubmit(event) {
-		event.preventDefault();
-
-		let displayed = Array(sounds.length).fill(true);
-
-		for (let i = 0; i < sounds.length; i++) {
-			if (!this.props.boards[i].name.toLowerCase().includes(this.state.query)) {
-				displayed[i] = false; 
-			}
-		}
-
-		this.setState({
-			query: this.state.query.toLowerCase(),
-			displayed: displayed
-		});
-	}
-
-	render() {
-		return (
-			<div>
-				<div className="reset-wrapper">
-					<form onSubmit={(event) => this.handleSubmit(event)}>
-						<input 
-							type="text" 
-							className="form-control search" 
-							placeholder="Search..."
-							value={this.state.query}
-							onChange={(event) => this.handleChange(event)}
-						/>
-					</form>
-					<button type="button" className="btn btn-primary btn-lg" onClick={() => {this.reset()}}>
-						Reset sounds 
-					</button>
-				</div>
-				<div className="soundboard">
-					{/* Adding playing sounds to a separate soundtrack */}
-					<ul className="list-group soundboard-container">
-						<p> Playing... </p>
-						{this.props.boards.map((val, step) => {
-							const isPlaying = this.props.boards[step].playing;
-
-							if (this.state.animated[step] && this.state.displayed[step]) {
-								return(
-									<li
-										className={
-											`playing-slider list-group-item ${val.name.toLowerCase()}-animated ${isPlaying ? "slide-in-animation" : "slide-out-animation"}`
-										}
-										key={step}>
-										<p className="sound-title"> {val.name} </p>
-										<button 
-											onClick={() => this.handleClick(step)}>
-											{
-												this.props.boards[step].playing ? '⏸️' : '▶️'
-											}
-										</button>  
-
-										{this.generateSlider(step)}
-									</li>
-								);
-							} else {
-								return(null);
-							}
-						})}
-					</ul>
-					<ul className="list-group soundboard-container">
-						{/* Adding objects to the soundboard */}
-						<p> Available Boards </p>
-						{this.props.boards.map((val, step) => {
-							const isPlaying = this.props.boards[step].playing;
-							
-							if (this.state.animated[step] || !this.state.displayed[step]) {
-								return(null);
-							} else {
-								// Adds sound if it isn't playing
-								return(
-									<li 
-										className = {
-											`sound-slider list-group-item ${val.name.toLowerCase()}-still ${isPlaying ? "slide-out-animation" : "slide-in-animation"}`
-										}
-										key={step}>
-										<p className="sound-title"> {val.name} </p>
-										<button 
-											onClick={() => this.handleClick(step)}>
-											{
-												this.props.boards[step].playing ? '⏸️' : '▶️'
-											}
-										</button>  
-
-										{this.generateSlider(step)}
-									</li>
-								);
-							}
-						})}
-					</ul>
-				</div>
-			</div>
-		);
-	}
-}
-
 class Board extends React.Component {
 	constructor(props) {
 		super(props);
@@ -257,17 +84,7 @@ class Board extends React.Component {
 	render() {
 		return (
 			<div>
-				<div className="jumbotron jumbotron-fluid">
-					<div className="container">
-						<h1 className="display-4">
-							D&D Soundboard
-						</h1>
-						<p className="lead">
-							Adjust volume below
-						</p>
-					</div>
-				</div>
-				<Soundboard
+				<SoundController
 					boards={this.state.sound}
 					onChange={(i, event) => this.onSliderChange(i, event)}
 					onClick={(i) => this.handleClick(i)}
@@ -277,6 +94,278 @@ class Board extends React.Component {
 		);
 	}
 }
+
+// Slider for soundboard to adjust volume
+
+// Determines which sound sliders are shown 
+class SoundController extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			query: "",
+			// Keeps track of which soundboard slider is displayed
+			displayed: Array(sounds.length).fill(true)
+		}
+	}
+
+	handleSubmit(event) {
+		event.preventDefault();
+		
+		let query = this.state.query;
+		let displayed = Array(sounds.length).fill(true);
+
+		// Checks if audio object has search query in name
+		for (let i = 0; i < this.props.boards.length; i++) {
+			let matchesSearch = this.props.boards[i].name.toLowerCase().includes(query.toLowerCase());
+			if (!matchesSearch) {
+				displayed[i] = false;
+			}
+		}
+
+		this.setState({
+			query: query,
+			displayed: displayed
+		})
+	}
+
+	handleChange(event) {
+		let query = event.target.value;
+		let displayed = Array(sounds.length).fill(true);
+
+		// Checks if audio object has search query in name
+		for (let i = 0; i < this.props.boards.length; i++) {
+			let matchesSearch = this.props.boards[i].name.toLowerCase().includes(query.toLowerCase());
+			if (!matchesSearch) {
+				displayed[i] = false; 
+			}
+		}
+
+		this.setState({
+			query: query,
+			displayed: displayed
+		})
+	}
+
+	reset() {
+		this.props.reset();
+
+		this.setState({
+			query: "",
+			displayed: Array(sounds.length).fill(true)
+		})
+	}
+
+	render() {
+		return (
+			<div>
+				<Soundboard
+					boards={this.props.boards}
+					onChange={(i, event) => this.props.onChange(i, event)}
+					onClick={(i) => this.props.onClick(i)}
+					displayed={this.state.displayed}
+					reset={() => this.reset()}
+					handleSubmit={(event) => this.handleSubmit(event)}
+					handleChange={(event) => this.handleChange(event)}
+					query={this.state.query}
+				/>
+			</div>
+		);
+	}
+}
+
+class Soundboard extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			animated: Array(sounds.length).fill(false)
+		}
+	}
+
+	handleClick(i) {
+		this.props.onClick(i);
+
+		setTimeout(() => {
+			let animated = this.state.animated.slice();
+			animated[i] = !animated[i];
+
+			this.setState({
+				animated: animated
+			})
+		}, 450);
+	}
+
+	reset() {
+		this.props.reset();
+		
+		this.setState({
+			animated: Array(sounds.length).fill(false)
+		})
+	}
+
+	render() {
+		return (
+			<div class="main">
+				<div className="jumbotron jumbotron-fluid" onClick={() => this.reset()}>
+					<div className="container">
+						<h1 className="display-4">
+							D&D Soundboard
+						</h1>
+						<p className="lead">
+							Click here to reset
+						</p>
+					</div>
+				</div>
+				<form onSubmit={(event) => this.props.handleSubmit(event)}>
+					<input 
+						type="text" 
+						className="form-control search" 
+						placeholder="Search..."
+						value={this.props.query}
+						onChange={(event) => this.props.handleChange(event)}
+					/>
+				</form>
+				<SoundboardContainer>
+					<AvailableSoundboardContainer>
+						{this.props.boards.map((val, step) => {
+							const isPlaying = this.props.boards[step].playing;
+							const volume = this.props.boards[step].soundVolume.gain.value * AUDIO_SENSITIVITY;
+
+							if (!this.state.animated[step] && this.props.displayed[step]) {
+								return(
+									<AvailableSoundSliderContainer 
+										playing={isPlaying}
+										name={val.name}
+										handleClick={() => this.handleClick(step)}
+										volume={volume}
+										step={step}
+										onChange={(step, event) => this.props.onChange(step, event)}>
+									</AvailableSoundSliderContainer>
+								);
+							} else {
+								return(null);
+							}
+						})}
+					</AvailableSoundboardContainer>
+					<PlayingSoundboardContainer>
+						{this.props.boards.map((val, step) => {
+							const isPlaying = this.props.boards[step].playing;
+							const volume = this.props.boards[step].soundVolume.gain.value * AUDIO_SENSITIVITY;
+
+							if (this.state.animated[step]) {
+								return(
+									<PlayingSoundSliderContainer 
+										playing={isPlaying}
+										name={val.name}
+										handleClick={() => this.handleClick(step)}
+										volume={volume}
+										onChange={(step, event) => this.props.onChange(step, event)}>
+									</PlayingSoundSliderContainer>
+								);
+							} else {
+								return(null);
+							}
+						})}
+					</PlayingSoundboardContainer>
+					
+				</SoundboardContainer>
+			</div>		
+		);
+	}
+}
+
+// Containment for soundsliders 
+function SoundboardContainer(props) {
+	return (
+		<div className="soundboard">
+			
+			{props.children}
+		</div>
+	)
+}
+
+function PlayingSoundboardContainer(props) {
+	return(
+		<ul className="list-group playing-soundboard-container">
+			<p>Playing...</p>
+			{props.children}
+		</ul>
+	)
+}
+
+function AvailableSoundboardContainer(props) {
+	return(
+		<ul className="list-group available-soundboard-container">
+			<p>Available</p>
+			{props.children}
+		</ul>
+	)
+}
+
+// Container for sound sliders 
+// Requires props: playing (bool), name(string) 
+function PlayingSoundSliderContainer(props) {
+	return (
+		<li 
+			className={"playing-slider list-group-item " + (props.playing ? "slide-in-animation" : "slide-out-animation")}
+			key={props.step}>
+			<p className={"sound-title"}>{props.name}</p>
+			<button
+				onClick={() => props.handleClick(props.step)}>
+				{props.playing ? '⏸️' : '▶️'}
+			</button>
+			<SoundSlider 
+				volume={props.volume}
+				onChange={(event) => props.onChange(props.step, event)}
+			/>
+		</li>
+	)
+}
+
+// Container for sound sliders 
+// Requires props: playing (bool), name(string) 
+function AvailableSoundSliderContainer(props) {
+	return (
+		<li 
+			className={"playing-slider list-group-item " + (props.playing ? "slide-out-animation" : "slide-in-animation")}
+			key={props.step}>
+			<p className={"sound-title"}>{props.name}</p>
+			<button
+				onClick={() => props.handleClick(props.step)}>
+				{props.playing ? '⏸️' : '▶️'}
+			</button>
+			<SoundSlider 
+				volume={props.volume}
+				onChange={(event) => props.onChange(props.step, event)}
+			/>
+		</li>
+	)
+}
+
+class SoundSlider extends React.Component {
+	render() {
+		return(
+			<Slider
+				min={0}
+				max={100}
+				value={this.props.volume}
+				onChange={this.props.onChange}
+			/>
+		)
+	}
+}
+
+// function Reset(props) {
+// 	return (
+// 		<div className="reset-wrapper">
+// 			<button type="button" className="btn btn-primary btn-lg reset" onClick={() => props.reset()}>
+// 				Reset sounds 
+// 			</button>
+// 		</div>
+// 	)
+// }
+
 
 // HELPER FUNCTIONS 
 
