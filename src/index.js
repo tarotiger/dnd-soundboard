@@ -36,6 +36,7 @@ class Board extends React.Component {
 	}
 
 	onSliderChange(i, event) {
+		console.log(i);
 		let sound = this.state.sound.slice();
 		sound[i].soundVolume.gain.value = event / AUDIO_SENSITIVITY;
 		this.setState({
@@ -240,7 +241,7 @@ class Soundboard extends React.Component {
 										handleClick={() => this.handleClick(step)}
 										volume={volume}
 										step={step}
-										onChange={(step, event) => this.props.onChange(step, event)}>
+										onChange={(i, event) => this.props.onChange(i, event)}>
 									</AvailableSoundSliderContainer>
 								);
 							} else {
@@ -260,7 +261,8 @@ class Soundboard extends React.Component {
 										name={val.name}
 										handleClick={() => this.handleClick(step)}
 										volume={volume}
-										onChange={(step, event) => this.props.onChange(step, event)}>
+										step={step}
+										onChange={(i, event) => this.props.onChange(i, event)}>
 									</PlayingSoundSliderContainer>
 								);
 							} else {
