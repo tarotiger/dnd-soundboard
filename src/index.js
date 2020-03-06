@@ -12,9 +12,13 @@ import night from './assets/Night.mp3';
 import torch from './assets/Torch.mp3';
 import festival from './assets/Festival.mp3';
 import haunted from './assets/Haunted.mp3';
+import combat from './assets/Combat (1).mp3';
 
-const sounds = [rain, campfire, cave, night, torch, festival, haunted];
-const ambient = [night, festival, haunted];
+import sword from './assets/Sword.mp3';
+
+const sounds = [rain, campfire, cave, night, torch, festival, haunted, combat];
+const ambient = [night, festival, haunted, combat];
+const instant = [sword];
 const AUDIO_SENSITIVITY = 100 / 3; 
 
 sounds.sort();
@@ -206,9 +210,34 @@ class Soundboard extends React.Component {
 	}
 
 	render() {
+		let numPlaying = 0; 
+
+		// Counts the number of tracks currently playing 
+		this.props.boards.forEach((element) => {
+			if (element.playing === true) {
+				numPlaying++;
+			}
+		})
+
 		return (
 			<div class="main">
-				<div className="jumbotron jumbotron-fluid" onClick={() => this.reset()}>
+				<header className="navbar navbar-expand flex-column flex-md-row bd-navbar">
+					<div className="logo"></div>
+					<p className="nav-title font-weight-normal"> D&D Soundboard <span className="author-title"> /kenxmel/ </span></p>
+					<div className="navbar-container">
+						<button className="reset-button btn" onClick={() => this.reset()}> </button>
+						<form className="search-form" onSubmit={(event) => this.props.handleSubmit(event)}>
+							<input 
+								type="text" 
+								className="form-control search" 
+								placeholder="Search..."
+								value={this.props.query}
+								onChange={(event) => this.props.handleChange(event)}
+							/>
+						</form>
+					</div>
+				</header>	
+				{/* <div className="jumbotron jumbotron-fluid" onClick={() => this.reset()}>
 					<div className="container">
 						<h1 className="display-4">
 							D&D Soundboard
@@ -217,16 +246,7 @@ class Soundboard extends React.Component {
 							Click here to reset
 						</p>
 					</div>
-				</div>
-				<form onSubmit={(event) => this.props.handleSubmit(event)}>
-					<input 
-						type="text" 
-						className="form-control search" 
-						placeholder="Search..."
-						value={this.props.query}
-						onChange={(event) => this.props.handleChange(event)}
-					/>
-				</form>
+				</div>		 */}
 				<SoundboardContainer>
 					<AvailableSoundboardContainer>
 						{this.props.boards.map((val, step) => {
@@ -253,6 +273,12 @@ class Soundboard extends React.Component {
 						{this.props.boards.map((val, step) => {
 							const isPlaying = this.props.boards[step].playing;
 							const volume = this.props.boards[step].soundVolume.gain.value * AUDIO_SENSITIVITY;
+
+							if (step === 0 && numPlaying === 0) {
+								return(
+									<p className="font-weight-light"> No sounds currently playing... </p>
+								);
+							}
 
 							if (this.state.animated[step]) {
 								return(
@@ -281,7 +307,6 @@ class Soundboard extends React.Component {
 function SoundboardContainer(props) {
 	return (
 		<div className="soundboard">
-			
 			{props.children}
 		</div>
 	)
@@ -290,7 +315,7 @@ function SoundboardContainer(props) {
 function PlayingSoundboardContainer(props) {
 	return(
 		<ul className="list-group playing-soundboard-container">
-			<p>Playing...</p>
+			<p className="soundboard-title">PLAYING</p>
 			{props.children}
 		</ul>
 	)
@@ -299,7 +324,7 @@ function PlayingSoundboardContainer(props) {
 function AvailableSoundboardContainer(props) {
 	return(
 		<ul className="list-group available-soundboard-container">
-			<p>Available</p>
+			<p className="soundboard-title">AVAILABLE</p>
 			{props.children}
 		</ul>
 	)
@@ -312,15 +337,17 @@ function PlayingSoundSliderContainer(props) {
 		<li 
 			className={"playing-slider list-group-item " + (props.playing ? "slide-in-animation" : "slide-out-animation")}
 			key={props.step}>
-			<p className={"sound-title"}>{props.name}</p>
+			<p className={"text-left"}>{props.name.toUpperCase()}</p>
 			<button
 				onClick={() => props.handleClick(props.step)}>
 				{props.playing ? '⏸️' : '▶️'}
 			</button>
-			<SoundSlider 
-				volume={props.volume}
-				onChange={(event) => props.onChange(props.step, event)}
-			/>
+			<div className="slider-container">
+				<SoundSlider 
+					volume={props.volume}
+					onChange={(event) => props.onChange(props.step, event)}
+				/>
+			</div>	
 		</li>
 	)
 }
@@ -332,15 +359,19 @@ function AvailableSoundSliderContainer(props) {
 		<li 
 			className={"playing-slider list-group-item " + (props.playing ? "slide-out-animation" : "slide-in-animation")}
 			key={props.step}>
-			<p className={"sound-title"}>{props.name}</p>
-			<button
-				onClick={() => props.handleClick(props.step)}>
-				{props.playing ? '⏸️' : '▶️'}
-			</button>
-			<SoundSlider 
-				volume={props.volume}
-				onChange={(event) => props.onChange(props.step, event)}
-			/>
+			<div>
+				<p className={"text-left"}>{props.name.toUpperCase()}</p>
+				<button
+					onClick={() => props.handleClick(props.step)}>
+					{props.playing ? '⏸️' : '▶️'}
+				</button>
+				<div className="slider-container">
+					<SoundSlider 
+						volume={props.volume}
+						onChange={(event) => props.onChange(props.step, event)}
+					/>
+				</div>	
+			</div>
 		</li>
 	)
 }
@@ -367,9 +398,6 @@ class SoundSlider extends React.Component {
 // 		</div>
 // 	)
 // }
-
-
-// HELPER FUNCTIONS 
 
 // Returns the name of the mp3 file from import 
 const getMP3Name = (importName) => {

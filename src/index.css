@@ -30,28 +30,28 @@
 		justify-content: center;
 	}
 
-	.sound-slider {
-		display: inline-flex;
-		width: 400px;
-		background-color: rgb(209, 203, 203) !important;
-	}
-
 	.playing-slider {
 		display: inline-flex;
 		width: 400px;
-		background-color: rgb(209, 203, 203) !important;
+		background-color: rgb(209, 203, 203);
+	}
+
+	.playing-slider:hover {
+		background-color: aliceblue;
 	}
 
 	.available-soundboard-container {
 		position: absolute;
 		left: 42px;
 		padding-top: 15px;
+		top: 80px;
 	}
 
 	.playing-soundboard-container {
 		position: absolute;
 		padding-top: 15px;
 		left: 552px;
+		top: 80px;
 	}
 
 	.reset-wrapper {
@@ -60,9 +60,7 @@
 
 	.search {
 		display: flex; 
-		margin-left: 40px;
-		margin-right: 300px;
-		width: 20% !important;
+		width: 100% !important;
 	}
 
 	.reset {
@@ -72,25 +70,142 @@
 	}
 }
 
-.campfire-animated {
+.soundboard-icon {
+	overflow: hidden;
+}
+
+.play-button {
+	float: left; 
+	height: 100%;
+	border: 1px solid black;
+}
+
+.pause-button {
+	float: left;
+}
+
+.bd-navbar {
+	width: 100%;
+	background-color: rgb(0, 0, 0);
+	position: fixed !important;
+	z-index: 1071;
+	height: 67px;
+}
+
+.slider-container {
+	padding-top: 5px;
+}
+
+.slide-out-animation {
+	-webkit-animation-name: slide-out;
+	-webkit-animation-duration: 0.5s;
+	-webkit-animation-fill-mode: forwards;
+	animation-name: slide-out;
+	animation-duration: 0.5s; 
+	animation-fill-mode: fowards;
+}
+
+.slide-in-animation {
+	-webkit-animation-name: slide-in;
+	-webkit-animation-duration: 0.5s;
+	-webkit-animation-fill-mode: forwards;
+	animation-name: slide-in;
+	animation-duration: 0.5s;
+	animation-fill-mode: fowards;
+}
+
+.soundboard-title {
+	font-size: 2rem;
+	display: block;
+	font-weight: 500;
+}
+
+.nav-title {
+	margin-top: 7px; 
+	font-size: 2rem; 
+	color: white;
+}
+
+.search-form {
+	right: 15px;
+	float: right;
+}
+
+.reset-button { 
+	float: left;
+	left: 55%;
+	height: 36px;
+	width: 36px;
+	margin-top: 1.5px;
+	margin-right: 15px;
+	background-image: url("./assets/reset.jpg");
+	background-size: cover;
+}
+
+.navbar-container {
+	position: absolute;
+	right: 15px;
+}
+
+.author-title {
+	font-size: 10px;
+}
+
+.logo {
+	background-image: url("./assets/logo.png");
+	background-size: cover;
+	height: 36px;
+	width: 36px;
+	margin-right: 15px;
+}
+
+/* body {
+	background-color: rgb(177, 177, 177);
+} */
+
+@keyframes slide-in {
+	0% {
+		left: 100px;
+		opacity: 0;
+	}
+	100% {
+		left: 0px;
+		opacity: 1;
+	}
+}
+
+@keyframes slide-out {
+	0% {
+		left: 0px;
+		opacity: 1;
+	}
+	100% {
+		left: -100px;
+		opacity: 0;
+		display: none;
+		visibility: hidden;
+	}
+}
+
+/* .campfire-animated {
 	background-position: center;
 	z-index: 1;
 	background: url("./assets/Campfire.gif");
 	background-repeat: no-repeat;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
-	-o-background-size:cover;
-	background-size:cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
 .campfire-still {
-	background-position: center; 
+	background-position: center;
 	z-index: 1;
 	background: url("./assets/Campfire.png");
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
-	-o-background-size:cover;
-	background-size:cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
 .cave-animated {
@@ -217,57 +332,4 @@
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-}
-
-.sound-title {
-	color: white;
-	font-size: 18px;
-	mix-blend-mode: difference;
-}
-
-.slide-out-animation {
-	-webkit-animation-name: slide-out;
-	-webkit-animation-duration: 0.5s;
-	-webkit-animation-fill-mode: forwards;
-	animation-name: slide-out;
-	animation-duration: 0.5s; 
-	animation-fill-mode: fowards;
-}
-
-.slide-in-animation {
-	-webkit-animation-name: slide-in;
-	-webkit-animation-duration: 0.5s;
-	-webkit-animation-fill-mode: forwards;
-	animation-name: slide-in;
-	animation-duration: 0.5s;
-	animation-fill-mode: fowards;
-}
-
-body {
-	/* background-image: url("./assets/Hoard-Cover.jpg");
-	background-size: cover; */
-}
-
-@keyframes slide-in {
-	0% {
-		left: 100px;
-		opacity: 0;
-	}
-	100% {
-		left: 0px;
-		opacity: 1;
-	}
-}
-
-@keyframes slide-out {
-	0% {
-		left: 0px;
-		opacity: 1;
-	}
-	100% {
-		left: -100px;
-		opacity: 0;
-		display: none;
-		visibility: hidden;
-	}
-}
+} */
