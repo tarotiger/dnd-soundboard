@@ -70,6 +70,66 @@
 	}
 }
 
+ul {
+	list-style-type: none;
+}
+
+ul li {
+	display: inline-block;
+}
+
+ul li img {
+	width: 70px;
+	height: 70px;
+	border-radius: 5px;
+	margin: 8px;
+	transition: 0.3s;
+}
+
+ul li figure img:hover {
+	opacity: 0.5;
+}
+
+ul li figure div img {
+	margin: 18px;
+	width: 50px;
+	height: 50px;
+}
+
+.hover-button {
+	display: hidden;
+	/* width: 70px;
+	height: 70px; */
+	position: absolute;
+	z-index: -1;
+	/* margin: 8px; */
+}
+
+.hover-button img:hover {
+	opacity: 0.5;
+	display: block;
+	background-color: #ffffff;
+	z-index: 100;
+}
+
+figcaption {
+	text-align: center
+}
+
+.soundboard-container {
+	display: grid;
+	width: 100%;
+}
+
+.category-title {
+	grid-column: 1;
+	color: #4b4b4bcb;
+}
+
+.icon-container {
+	grid-column: 2;
+}
+
 .soundboard-icon {
 	overflow: hidden;
 }
