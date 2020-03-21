@@ -17,12 +17,34 @@ import combat from './assets/Combat (1).mp3';
 import sword from './assets/Sword.mp3';
 
 const sounds = [rain, campfire, cave, night, torch, festival, haunted, combat];
-const ambient = [night, festival, haunted, combat];
 const instant = [sword];
 const AUDIO_SENSITIVITY = 100 / 3; 
 
+// SOUND CATEGORIES 
+const nature = [rain, campfire]
+const nighttime = [night, torch, haunted]
+const dungeon = [cave, torch]
+const fun = [festival]
+
 sounds.sort();
-ambient.sort();
+instant.sort();
+nature.sort();
+nighttime.sort();
+dungeon.sort();
+fun.sort();
+
+const unorderedSoundsCategory = {
+	"nature": nature,
+	"nighttime": nighttime,
+	"dungeon": dungeon,
+	"fun": fun
+}
+
+// Sort the categories alphabetically
+const soundsCategory = {}
+Object.keys(unorderedSoundsCategory).sort().forEach(function(key) {
+	soundsCategory[key] = unorderedSoundsCategory[key];
+})
 
 class Board extends React.Component {
 	constructor(props) {
@@ -211,6 +233,7 @@ class Soundboard extends React.Component {
 
 	render() {
 		let numPlaying = 0; 
+		let availableSound = [];
 
 		// Counts the number of tracks currently playing 
 		this.props.boards.forEach((element) => {
@@ -220,10 +243,10 @@ class Soundboard extends React.Component {
 		})
 
 		return (
-			<div class="main">
+			<div className="main">
 				<header className="navbar navbar-expand flex-column flex-md-row bd-navbar">
 					<div className="logo"></div>
-					<p className="nav-title font-weight-normal"> D&D Soundboard <span className="author-title"> /kenxmel/ </span></p>
+					<p className="nav-title font-weight-normal"> D&D Soundboard <span className="author-title"> github.com/kenxmel </span></p>
 					<div className="navbar-container">
 						<button className="reset-button btn" onClick={() => this.reset()}> </button>
 						<form className="search-form" onSubmit={(event) => this.props.handleSubmit(event)}>
@@ -237,36 +260,45 @@ class Soundboard extends React.Component {
 						</form>
 					</div>
 				</header>	
-				{/* <div className="jumbotron jumbotron-fluid" onClick={() => this.reset()}>
-					<div className="container">
-						<h1 className="display-4">
-							D&D Soundboard
-						</h1>
-						<p className="lead">
-							Click here to reset
-						</p>
-					</div>
-				</div>		 */}
 				<SoundboardContainer>
 					<AvailableSoundboardContainer>
-						{this.props.boards.map((val, step) => {
-							const isPlaying = this.props.boards[step].playing;
-							const volume = this.props.boards[step].soundVolume.gain.value * AUDIO_SENSITIVITY;
+						{Object.keys(soundsCategory).map((key, step) => {
+							availableSound = [];
+							soundsCategory[key].map((soundimport, i) => {
+								let sound;
+								let index;
 
-							if (!this.state.animated[step] && this.props.displayed[step]) {
-								return(
-									<AvailableSoundSliderContainer 
+								for (let j = 0; j < this.props.boards.length; j++) {
+									if (this.props.boards[j].name === getMP3Name(soundimport)) {
+										sound = this.props.boards[j];
+										index = j; 
+										break; 
+									}
+								}
+
+								const isPlaying = sound.playing;
+								const volume = sound.soundVolume.gain.value * AUDIO_SENSITIVITY;
+								if (!this.state.animated[index] && this.props.displayed[index]) {
+									availableSound.push(<AvailableSoundSliderContainer 
 										playing={isPlaying}
-										name={val.name}
-										handleClick={() => this.handleClick(step)}
+										name={sound.name}
+										handleClick={() => this.handleClick(index)}
 										volume={volume}
-										step={step}
-										onChange={(i, event) => this.props.onChange(i, event)}>
-									</AvailableSoundSliderContainer>
-								);
-							} else {
+										step={index}
+										onChange={(index, event) => this.props.onChange(index, event)}>
+									</AvailableSoundSliderContainer>)
+								}
 								return(null);
-							}
+							}) 
+							return(
+								<React.Fragment>
+									<CategoryTitle name={key}></CategoryTitle>
+									<ul className="icon-container">
+										{availableSound}
+									</ul>
+								</React.Fragment>
+								
+							);
 						})}
 					</AvailableSoundboardContainer>
 					<PlayingSoundboardContainer>
@@ -276,7 +308,7 @@ class Soundboard extends React.Component {
 
 							if (step === 0 && numPlaying === 0) {
 								return(
-									<p className="font-weight-light"> No sounds currently playing... </p>
+									<p className="font-weight-light" key={"no-sound"}> No sounds currently playing... </p>
 								);
 							}
 
@@ -323,10 +355,11 @@ function PlayingSoundboardContainer(props) {
 
 function AvailableSoundboardContainer(props) {
 	return(
-		<ul className="list-group available-soundboard-container">
-			<p className="soundboard-title">AVAILABLE</p>
-			{props.children}
-		</ul>
+		<div className="available-soundboard-container">
+			<div className="soundboard-container">
+				{props.children}
+			</div>	
+		</div>
 	)
 }
 
@@ -336,9 +369,10 @@ function PlayingSoundSliderContainer(props) {
 	return (
 		<li 
 			className={"playing-slider list-group-item " + (props.playing ? "slide-in-animation" : "slide-out-animation")}
-			key={props.step}>
+			key={props.name}>
 			<p className={"text-left"}>{props.name.toUpperCase()}</p>
 			<button
+				className="btn"
 				onClick={() => props.handleClick(props.step)}>
 				{props.playing ? '⏸️' : '▶️'}
 			</button>
@@ -352,26 +386,31 @@ function PlayingSoundSliderContainer(props) {
 	)
 }
 
+
+// Contains the title of each category
+function CategoryTitle(props) {
+	return (
+		<div className="category-title">
+			<p className="soundboard-title"> {props.name} </p>
+		</div>
+	)
+}
+
 // Container for sound sliders 
 // Requires props: playing (bool), name(string) 
 function AvailableSoundSliderContainer(props) {
 	return (
-		<li 
-			className={"playing-slider list-group-item " + (props.playing ? "slide-out-animation" : "slide-in-animation")}
-			key={props.step}>
-			<div>
-				<p className={"text-left"}>{props.name.toUpperCase()}</p>
-				<button
-					onClick={() => props.handleClick(props.step)}>
-					{props.playing ? '⏸️' : '▶️'}
-				</button>
-				<div className="slider-container">
-					<SoundSlider 
-						volume={props.volume}
-						onChange={(event) => props.onChange(props.step, event)}
-					/>
-				</div>	
-			</div>
+		<li key={props.name} className={props.playing ? "slide-out-animation" : "slide-in-animation"} >
+			<figure>
+				<div 
+					className="hover-button"> 
+					<img alt="play button" src={require("./assets/play.png")}/> 
+				</div>
+				<img 
+				onClick={() => props.handleClick(props.step)}
+				alt="sound" src={require("./assets/" + props.name + ".png")}/>
+				<figcaption> {props.name} </figcaption>
+			</figure>
 		</li>
 	)
 }
