@@ -212,15 +212,24 @@ class Soundboard extends React.Component {
 
 	handleClick(i) {
 		this.props.onClick(i);
+		let animated = this.state.animated.slice();
 
-		setTimeout(() => {
-			let animated = this.state.animated.slice();
+		if (animated[i]) {
+			setTimeout(() => {
+				animated[i] = !animated[i];
+
+				this.setState({
+					animated: animated
+				})
+			}, 350);
+		} else {
 			animated[i] = !animated[i];
 
 			this.setState({
 				animated: animated
 			})
-		}, 450);
+		}
+		
 	}
 
 	reset() {
@@ -245,10 +254,11 @@ class Soundboard extends React.Component {
 		return (
 			<div className="main">
 				<header className="navbar navbar-expand flex-column flex-md-row bd-navbar">
-					<div className="logo"></div>
+					<div 
+						onClick={() => this.reset()}
+						className="logo"></div>
 					<p className="nav-title font-weight-normal"> D&D Soundboard <span className="author-title"> github.com/kenxmel </span></p>
 					<div className="navbar-container">
-						<button className="reset-button btn" onClick={() => this.reset()}> </button>
 						<form className="search-form" onSubmit={(event) => this.props.handleSubmit(event)}>
 							<input 
 								type="text" 
@@ -290,6 +300,11 @@ class Soundboard extends React.Component {
 								}
 								return(null);
 							}) 
+							// No sound for the category is playing 
+							if (availableSound.length === 0) {
+								return(null);
+							}
+							
 							return(
 								<React.Fragment>
 									<CategoryTitle name={key}></CategoryTitle>
@@ -297,7 +312,6 @@ class Soundboard extends React.Component {
 										{availableSound}
 									</ul>
 								</React.Fragment>
-								
 							);
 						})}
 					</AvailableSoundboardContainer>
@@ -370,11 +384,12 @@ function PlayingSoundSliderContainer(props) {
 		<li 
 			className={"playing-slider list-group-item " + (props.playing ? "slide-in-animation" : "slide-out-animation")}
 			key={props.name}>
-			<p className={"text-left"}>{props.name.toUpperCase()}</p>
+			<p className={"text-left"}>{props.name}</p>
+			<img alt={props.name} className="playing-image" src={require("./assets/" + props.name + ".png")} />
 			<button
 				className="btn"
 				onClick={() => props.handleClick(props.step)}>
-				{props.playing ? '⏸️' : '▶️'}
+				<img className="pause-button" alt="pause button" src={require("./assets/pause.png")} />
 			</button>
 			<div className="slider-container">
 				<SoundSlider 
@@ -400,7 +415,7 @@ function CategoryTitle(props) {
 // Requires props: playing (bool), name(string) 
 function AvailableSoundSliderContainer(props) {
 	return (
-		<li key={props.name} className={props.playing ? "slide-out-animation" : "slide-in-animation"} >
+		<li key={props.name}>
 			<figure>
 				<div 
 					className="hover-button"> 
