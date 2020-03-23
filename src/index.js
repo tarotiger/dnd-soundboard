@@ -6,38 +6,48 @@ import 'rc-slider/assets/index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import rain from './assets/Rain.mp3';
-import campfire from './assets/Campfire.mp3';
+import fire from './assets/Fire.mp3';
 import cave from './assets/Cave.mp3';
 import night from './assets/Night.mp3';
-import torch from './assets/Torch.mp3';
 import festival from './assets/Festival.mp3';
 import haunted from './assets/Haunted.mp3';
-import combat from './assets/Combat (1).mp3';
+import combat from './assets/Combat (Plains).mp3';
+import thunder from './assets/Thunder.mp3';
+import carriage from './assets/Carriage.mp3';
+import goblincave from './assets/Goblin Cave.mp3';
+import lostmine from './assets/Lost Mine.mp3';
+import woodland from './assets/Woodland Campsite.mp3';
+import tavernmusic from './assets/Tavern Music.mp3';
+import medievaltown from './assets/Medieval Town.mp3';
+import tavern from './assets/Tavern.mp3';
+import boss from './assets/Boss.mp3';
 
 import sword from './assets/Sword.mp3';
 
-const sounds = [rain, campfire, cave, night, torch, festival, haunted, combat];
+const sounds = [rain, fire, cave, night, festival, haunted, combat, thunder, carriage, goblincave, lostmine, woodland, tavernmusic, medievaltown, tavern, boss];
 const instant = [sword];
 const AUDIO_SENSITIVITY = 100 / 3; 
 
 // SOUND CATEGORIES 
-const nature = [rain, campfire]
-const nighttime = [night, torch, haunted]
-const dungeon = [cave, torch]
-const fun = [festival]
+const nature = [rain, fire, thunder, woodland];
+const nighttime = [night, haunted];
+const town = [tavernmusic, fire, medievaltown, tavern];
+const dungeon = [cave, combat, goblincave, lostmine, boss];
+const preset = [festival, combat, night, carriage, lostmine, woodland, tavern, boss];
 
 sounds.sort();
 instant.sort();
 nature.sort();
 nighttime.sort();
 dungeon.sort();
-fun.sort();
+preset.sort();
+town.sort();
 
 const unorderedSoundsCategory = {
 	"nature": nature,
 	"nighttime": nighttime,
 	"dungeon": dungeon,
-	"fun": fun
+	"town": town
 }
 
 // Sort the categories alphabetically
@@ -46,13 +56,38 @@ Object.keys(unorderedSoundsCategory).sort().forEach(function(key) {
 	soundsCategory[key] = unorderedSoundsCategory[key];
 })
 
+soundsCategory["preset"] = preset; 
+
 class Board extends React.Component {
 	constructor(props) {
 		super(props);
 
+		localStorage.clear();
+
 		let sound = [];
-		for (let i = 0; i < sounds.length; i++) {
-			sound.push(createAudioElement(sounds[i]));
+		let storedSound = localStorage.getItem('sound');
+
+		// No presaved data in browser
+		if (storedSound === null) {
+			sound = [];
+			for (let i = 0; i < sounds.length; i++) {
+				sound.push(createAudioElement(sounds[i]));
+			}
+		} else {
+			storedSound = JSON.parse(storedSound);
+			console.log(storedSound);
+			for (let i = 0; i < sounds.length; i++) {
+				let audioElement = createAudioElement(sounds[i]);
+
+				if (storedSound[i].playing) {
+					audioElement.sound.play();
+				}
+
+				audioElement.playing = storedSound[i].playing;
+				audioElement.volume = storedSound[i].volume;
+				audioElement.soundVolume.gain.value = storedSound[i].volume/AUDIO_SENSITIVITY;
+				sound.push(audioElement);
+			}
 		}
 
 		this.state = {
@@ -64,7 +99,9 @@ class Board extends React.Component {
 	onSliderChange(i, event) {
 		console.log(i);
 		let sound = this.state.sound.slice();
+		sound[i].volume = event; 
 		sound[i].soundVolume.gain.value = event / AUDIO_SENSITIVITY;
+		localStorage.setItem('sound', JSON.stringify(sound));
 		this.setState({
 			sound: sound
 		})
@@ -87,6 +124,7 @@ class Board extends React.Component {
 			sound[i].playing = true; 
 		}
 		
+		localStorage.setItem('sound', JSON.stringify(sound));
 		this.setState({
 			sound: sound
 		})
@@ -103,6 +141,7 @@ class Board extends React.Component {
 			sound.push(createAudioElement(sounds[i]));
 		}
 
+		localStorage.setItem('sound', JSON.stringify(sound));
 		this.setState({
 			sound: sound
 		})
@@ -205,8 +244,18 @@ class Soundboard extends React.Component {
 	constructor(props) {
 		super(props);
 
+		let animated = [];
+
+		for (let i = 0; i < this.props.boards.length; i++) {
+			if (this.props.boards[i].playing) {
+				animated[i] = true;
+			} else {
+				animated[i] = false; 
+			}
+		}
+
 		this.state = {
-			animated: Array(sounds.length).fill(false)
+			animated: animated
 		}
 	}
 
@@ -288,7 +337,7 @@ class Soundboard extends React.Component {
 
 								const isPlaying = sound.playing;
 								const volume = sound.soundVolume.gain.value * AUDIO_SENSITIVITY;
-								if (!this.state.animated[index] && this.props.displayed[index]) {
+								if (!isPlaying && this.props.displayed[index]) {
 									availableSound.push(<AvailableSoundSliderContainer 
 										playing={isPlaying}
 										name={sound.name}
@@ -304,7 +353,7 @@ class Soundboard extends React.Component {
 							if (availableSound.length === 0) {
 								return(null);
 							}
-							
+
 							return(
 								<React.Fragment>
 									<CategoryTitle name={key}></CategoryTitle>
@@ -419,7 +468,7 @@ function AvailableSoundSliderContainer(props) {
 			<figure>
 				<div 
 					className="hover-button"> 
-					<img alt="play button" src={require("./assets/play.png")}/> 
+					<img className="play-button" alt="play button" src={require("./assets/play.png")}/> 
 				</div>
 				<img 
 				onClick={() => props.handleClick(props.step)}
@@ -443,16 +492,6 @@ class SoundSlider extends React.Component {
 	}
 }
 
-// function Reset(props) {
-// 	return (
-// 		<div className="reset-wrapper">
-// 			<button type="button" className="btn btn-primary btn-lg reset" onClick={() => props.reset()}>
-// 				Reset sounds 
-// 			</button>
-// 		</div>
-// 	)
-// }
-
 // Returns the name of the mp3 file from import 
 const getMP3Name = (importName) => {
 	return importName.split("/")[3].split(".")[0];
@@ -463,6 +502,10 @@ const createAudioElement = (src) => {
 	let audioDOM = document.createElement("audio");
 	audioDOM.src = src;
 	audioDOM.type = "audio/*";
+	audioDOM.addEventListener('ended', function () {
+		this.currentTime = 0;
+		this.play();
+	}, false);
 
 	// Uses Web Audio API to increase volume sensitivity 
 	const audio = new AudioContext();

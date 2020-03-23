@@ -44,13 +44,14 @@
 		position: absolute;
 		left: 42px;
 		padding-top: 15px;
+		width: 40%;
 		top: 80px;
 	}
 
 	.playing-soundboard-container {
 		position: absolute;
 		padding-top: 15px;
-		left: 552px;
+		left: 45%;
 		top: 80px;
 	}
 
@@ -83,18 +84,35 @@ ul li img {
 	height: 70px;
 	border-radius: 5px;
 	margin: 8px;
+	background-color: white;
 	transition: 0.3s;
 }
 
 ul li figure img:hover {
 	cursor: pointer;
-	opacity: 0.5;
+	opacity: 0.3;
 }
 
 ul li figure div img {
 	margin: 18px;
 	width: 50px;
 	height: 50px;
+}
+
+figure {
+	display: grid !important;
+	width: 90px;
+	height: auto;
+}
+
+figure img {
+    grid-row: 1;
+}
+
+figcaption {
+	text-align: center;
+	width: inherit;
+	margin: 0px;
 }
 
 .playing-image {
@@ -104,23 +122,13 @@ ul li figure div img {
 }
 
 .hover-button {
-	display: hidden;
-	/* width: 70px;
-	height: 70px; */
 	position: absolute;
 	z-index: -1;
-	/* margin: 8px; */
 }
 
 .hover-button img:hover {
-	opacity: 0.5;
 	display: block;
 	background-color: #ffffff;
-	z-index: 100;
-}
-
-figcaption {
-	text-align: center
 }
 
 .soundboard-container {
@@ -131,21 +139,28 @@ figcaption {
 .category-title {
 	grid-column: 1;
 	color: #4b4b4bcb;
+	border-bottom: 1px solid #4b4b4bcb;
+	margin-top: 1rem; 
 }
 
 .icon-container {
 	grid-column: 2;
+	border-bottom: 1px solid #4b4b4bcb;
+	margin: 0px;
+	margin-top: 1rem;
 }
 
 .soundboard-icon {
 	overflow: hidden;
 }
 
-.play-button {
-	float: left; 
-	height: 100%;
-	border: 1px solid black;
+/* .play-button {
+	visibility: hide
 }
+
+.play-button:hover {
+	display: block;
+} */
 
 .pause-button {
 	height: 30px;
@@ -154,6 +169,7 @@ figcaption {
 	top: 35px;
 	left: 10px;
 	transition: 0.1s;
+	background-color: inherit;
 }
 
 .pause-button:hover {
