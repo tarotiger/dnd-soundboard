@@ -62,8 +62,6 @@ class Board extends React.Component {
 	constructor(props) {
 		super(props);
 
-		localStorage.clear();
-
 		let sound = [];
 		let storedSound = localStorage.getItem('sound');
 
@@ -303,11 +301,13 @@ class Soundboard extends React.Component {
 		return (
 			<div className="main">
 				<header className="navbar navbar-expand flex-column flex-md-row bd-navbar">
-					<div 
-						onClick={() => this.reset()}
-						className="logo"></div>
-					<p className="nav-title font-weight-normal"> D&D Soundboard <span className="author-title"> github.com/kenxmel </span></p>
-					<div className="navbar-container">
+					<div className="navbar-container-left">
+						<div 
+							onClick={() => this.reset()}
+							className="logo"></div>
+						<p className="nav-title font-weight-normal"> D&D Soundboard <span className="author-title"> github.com/kenxmel </span></p>
+					</div>
+					<div className="navbar-container-right">
 						<form className="search-form" onSubmit={(event) => this.props.handleSubmit(event)}>
 							<input 
 								type="text" 
@@ -455,7 +455,7 @@ function PlayingSoundSliderContainer(props) {
 function CategoryTitle(props) {
 	return (
 		<div className="category-title">
-			<p className="soundboard-title"> {props.name} </p>
+			<p className="category-text"> {props.name.charAt(0).toUpperCase() + props.name.slice(1)} </p>
 		</div>
 	)
 }
