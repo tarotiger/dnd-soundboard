@@ -1,5 +1,7 @@
 # dnd-soundboard
 
+![Sounboard](Example.PNG)
+
 Soundboard for role-playing game, D&amp;D developed in ReactJS, Bootstrap.
 
 Users are able to mix and match different arrays of sounds to produce the desired sound for the scenario. 
