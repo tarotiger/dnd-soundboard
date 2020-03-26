@@ -25,5 +25,5 @@ npm start
 ---
 
 # Credits 
-[`rc-slider`] (github.com/schrodinger/rc-slider)  
-[Boss + Carriage + Combat(Plains) + Festival + Goblin Cave + Haunted + Lost Mine + Medieval Town + Tavern + Woodland Campsite] (tabletopaudio.com)
+[`rc-slider`] (//github.com/schrodinger/rc-slider)  
+[Boss + Carriage + Combat(Plains) + Festival + Goblin Cave + Haunted + Lost Mine + Medieval Town + Tavern + Woodland Campsite] (//tabletopaudio.com)
