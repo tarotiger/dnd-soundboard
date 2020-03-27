@@ -4,6 +4,7 @@ import './index.css'
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Swipe from 'react-easy-swipe';
 
 import rain from './assets/Rain.mp3';
 import fire from './assets/Fire.mp3';
@@ -100,6 +101,8 @@ class Board extends React.Component {
 	constructor(props) {
 		super(props);
 
+		localStorage.clear();
+
 		let sound = [];
 		let storedSound = localStorage.getItem('sound');
 
@@ -166,6 +169,18 @@ class Board extends React.Component {
 		})
 	}
 
+	pauseSound(i) {
+		let sound = this.state.sound.slice();
+
+		sound[i].sound.pause();
+		sound[i].playing = false;
+
+		localStorage.setItem('sound', JSON.stringify(sound));
+		this.setState({
+			sound: sound
+		})
+	}
+
 	reset() {
 		// Pause all sound 
 		this.state.sound.forEach(element => {
@@ -190,6 +205,7 @@ class Board extends React.Component {
 				onChange={(i, event) => this.onSliderChange(i, event)}
 				onClick={(i) => this.handleClick(i)}
 				reset={() => this.reset()}
+				pauseSound={(i) => this.pauseSound(i)}
 			/>		
 		);
 	}
@@ -268,6 +284,7 @@ class SoundController extends React.Component {
 					handleSubmit={(event) => this.handleSubmit(event)}
 					handleChange={(event) => this.handleChange(event)}
 					query={this.state.query}
+					pauseSound={(i) => this.props.pauseSound(i)}
 				/>
 			</div>
 		);
@@ -278,22 +295,22 @@ class Soundboard extends React.Component {
 	constructor(props) {
 		super(props);
 
-		let animated = [];
+		let animated = Array(sounds.length).fill(false);
 
-		for (let i = 0; i < this.props.boards.length; i++) {
-			if (this.props.boards[i].playing) {
-				animated[i] = true;
-			} else {
-				animated[i] = false; 
-			}
-		}
+		// for (let i = 0; i < this.props.boards.length; i++) {
+		// 	if (this.props.boards[i].playing) {
+		// 		animated[i] = true;
+		// 	} else {
+		// 		animated[i] = false; 
+		// 	}
+		// }
 
 		this.state = {
 			animated: animated
 		}
 	}
 
-	handleClick(i) {
+	openSoundSlider(i) {
 		this.props.onClick(i);
 		let animated = this.state.animated.slice();
 
@@ -315,6 +332,17 @@ class Soundboard extends React.Component {
 		
 	}
 
+	closeSoundSlider(i) {
+		this.props.pauseSound(i);
+		let animated = this.state.animated.slice();
+
+		animated[i] = !animated[i];
+
+		this.setState({
+			animated: animated
+		})
+	}
+
 	reset() {
 		this.props.reset();
 		
@@ -323,13 +351,25 @@ class Soundboard extends React.Component {
 		})
 	}
 
+	onSwipeLeft(event, i) {
+		this.props.pauseSound(i);
+
+		let animated = this.state.animated.slice();
+
+		animated[i] = !animated[i];
+
+		this.setState({
+			animated: animated
+		})
+	}
+
 	render() {
 		let numPlaying = 0; 
 		let availableSound = [];
 
 		// Counts the number of tracks currently playing 
-		this.props.boards.forEach((element) => {
-			if (element.playing === true) {
+		this.state.animated.forEach((element) => {
+			if (element === true) {
 				numPlaying++;
 			}
 		})
@@ -369,14 +409,19 @@ class Soundboard extends React.Component {
 
 							if (this.state.animated[step]) {
 								return(
-									<PlayingSoundSliderContainer 
-										playing={isPlaying}
-										name={val.name}
-										handleClick={() => this.handleClick(step)}
-										volume={volume}
-										step={step}
-										onChange={(i, event) => this.props.onChange(i, event)}>
-									</PlayingSoundSliderContainer>
+									<Swipe 
+										onSwipeLeft={(event) => this.onSwipeLeft(event, step)}>
+											<PlayingSoundSliderContainer 
+											animated={this.state.animated[step]}
+											playing={isPlaying}
+											name={val.name}
+											handleClick={() => this.props.onClick(step)}
+											handleSoundSlider={() => this.closeSoundSlider(step)}
+											volume={volume}
+											step={step}
+											onChange={(i, event) => this.props.onChange(i, event)}>
+										</PlayingSoundSliderContainer>
+									</Swipe>
 								);
 							} else {
 								return(null);
@@ -400,11 +445,11 @@ class Soundboard extends React.Component {
 
 								const isPlaying = sound.playing;
 								const volume = sound.soundVolume.gain.value * AUDIO_SENSITIVITY;
-								if (!isPlaying && this.props.displayed[index]) {
+								if (!this.state.animated[index] && this.props.displayed[index]) {
 									availableSound.push(<AvailableSoundSliderContainer 
 										playing={isPlaying}
 										name={sound.name}
-										handleClick={() => this.handleClick(index)}
+										handleClick={() => this.openSoundSlider(index)}
 										volume={volume}
 										step={index}
 										onChange={(index, event) => this.props.onChange(index, event)}>
@@ -468,15 +513,28 @@ function AvailableSoundboardContainer(props) {
 function PlayingSoundSliderContainer(props) {
 	return (
 		<li 
-			className={"playing-slider list-group-item " + (props.playing ? "slide-in-animation" : "slide-out-animation")}
+			className={"playing-slider list-group-item " + (props.animated ? "slide-in-animation" : "slide-out-animation")}
 			key={props.name}>
+			<div className="close-wrapper-controller">
+				<div className="close-wrapper">
+					<img 
+						onClick={() => props.handleSoundSlider(props.step)}
+						className="close-button" 
+						alt="close" 
+						src={require("./assets/close.png")}/>
+				</div>
+			</div>
 			<p className={"text-left"}>{props.name}</p>
 			<img alt={props.name} className="playing-image" src={require("./assets/" + props.name + ".png")} />
-			<button
-				className="btn"
+			<div
+				className="playing-soundboard-button"
 				onClick={() => props.handleClick(props.step)}>
-				<img className="pause-button" alt="pause button" src={require("./assets/pause.png")} />
-			</button>
+				{props.playing ? (
+					<img className="playing-button" alt="pause button" src={require("./assets/pause.png")} />
+				) : (
+					<img className="playing-button" alt="pause button" src={require("./assets/play.png")} />
+				)}
+			</div>
 			<div className="slider-container">
 				<SoundSlider 
 					volume={props.volume}
