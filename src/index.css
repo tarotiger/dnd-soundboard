@@ -284,6 +284,15 @@ figcaption {
 		font-weight: 500;
 	}
 
+	.close-wrapper {
+		visibility: visible;
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		width: 350px;
+		height: 110px;
+	}
+
 	.font-weight-light {
 		margin-left: 5px;
 	}
