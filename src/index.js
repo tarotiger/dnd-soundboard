@@ -4,7 +4,6 @@ import './index.css'
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Swipe from 'react-easy-swipe';
 
 import rain from './assets/Rain.mp3';
 import fire from './assets/Fire.mp3';
@@ -409,19 +408,16 @@ class Soundboard extends React.Component {
 
 							if (this.state.animated[step]) {
 								return(
-									<Swipe 
-										onSwipeLeft={(event) => this.onSwipeLeft(event, step)}>
-											<PlayingSoundSliderContainer 
-											animated={this.state.animated[step]}
-											playing={isPlaying}
-											name={val.name}
-											handleClick={() => this.props.onClick(step)}
-											handleSoundSlider={() => this.closeSoundSlider(step)}
-											volume={volume}
-											step={step}
-											onChange={(i, event) => this.props.onChange(i, event)}>
-										</PlayingSoundSliderContainer>
-									</Swipe>
+									<PlayingSoundSliderContainer 
+										animated={this.state.animated[step]}
+										playing={isPlaying}
+										name={val.name}
+										handleClick={() => this.props.onClick(step)}
+										handleSoundSlider={() => this.closeSoundSlider(step)}
+										volume={volume}
+										step={step}
+										onChange={(i, event) => this.props.onChange(i, event)}>
+									</PlayingSoundSliderContainer>
 								);
 							} else {
 								return(null);
