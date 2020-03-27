@@ -58,6 +58,44 @@ Object.keys(unorderedSoundsCategory).sort().forEach(function(key) {
 
 soundsCategory["preset"] = preset; 
 
+class Start extends React.Component {
+	constructor(props) {
+		super(props);
+		
+		this.state = {
+			start: false 
+		}
+	}
+
+	startSoundboard() {
+		this.setState({
+			start: true
+		});
+	}
+	
+	render() {
+		return(
+			<React.Fragment>
+				{this.state.start ? (
+					<Board />
+				) : (
+					<div className="start-button">
+						<p className="text-center welcome">Welcome to dnd-soundboard</p>
+						<div>
+							<button 
+								className="btn btn-primary btn-lg" 
+								onClick={() => this.startSoundboard()}> 
+									Begin soundboard
+							</button>
+						</div>
+					</div>
+				)}
+			</React.Fragment>
+		)
+	}
+	
+}
+
 class Board extends React.Component {
 	constructor(props) {
 		super(props);
@@ -147,14 +185,12 @@ class Board extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<SoundController
-					boards={this.state.sound}
-					onChange={(i, event) => this.onSliderChange(i, event)}
-					onClick={(i) => this.handleClick(i)}
-					reset={() => this.reset()}
-				/>
-			</div>
+			<SoundController
+				boards={this.state.sound}
+				onChange={(i, event) => this.onSliderChange(i, event)}
+				onClick={(i) => this.handleClick(i)}
+				reset={() => this.reset()}
+			/>		
 		);
 	}
 }
@@ -529,6 +565,6 @@ const createAudioElement = (src) => {
 }
 
 ReactDOM.render(
-	<Board />,
+	<Start />,
 	document.getElementById('root')
 )

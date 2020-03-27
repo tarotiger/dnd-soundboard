@@ -6,13 +6,11 @@
 	.sound-slider {
 		display: flex;
 		width: 100%;
-		background-color: rgb(209, 203, 203) !important;
 	}
 
 	.playing-slider {
 		display: flex;
 		width: 100%;
-		background-color: rgb(209, 203, 203) !important;
 	}
 
 	.reset-wrapper {
@@ -33,7 +31,7 @@
 	.playing-slider {
 		display: inline-flex;
 		width: 350px;
-		background-color: rgb(209, 203, 203);
+		height: 111px;
 	}
 
 	.playing-slider:hover {
@@ -69,6 +67,11 @@
 		margin-top: 10px; 
 		margin-bottom: 10px; 
 	}
+}
+
+.welcome {
+	margin-top: 25%;
+	font-size: 3rem;
 }
 
 ul {
@@ -158,13 +161,14 @@ figcaption {
 	height: 30px;
 	width: 30px;
 	position: absolute;
-	top: 35px;
+	top: 40px;
 	left: 10px;
 	transition: 0.1s;
 	background-color: inherit;
 }
 
 .pause-button:hover {
+	top: 37px;
 	height: 35px;
 	width: 35px;
 }
@@ -177,8 +181,15 @@ figcaption {
 	height: 67px;
 }
 
+.start-button {
+	text-align: center;
+}
+
 .slider-container {
-	padding-top: 10px;
+	margin-top: 10px;
+	top: 78px;
+	width: 310px;
+	position: absolute;
 }
 
 .slide-out-animation {
