@@ -1,74 +1,3 @@
-@media only screen and (max-device-width: 991px) {
-	.soundboard {
-		display: flexbox;
-	}
-
-	.sound-slider {
-		display: flex;
-		width: 100%;
-	}
-
-	.playing-slider {
-		display: flex;
-		width: 100%;
-	}
-
-	.reset-wrapper {
-		display: flexbox;
-	}
-}
-
-@media only screen and (min-device-width: 992px) {
-	.main {
-		justify-content: space-between;
-	}
-
-	.soundboard {
-		display: flex;
-		justify-content: center;
-	}
-
-	.playing-slider {
-		display: inline-flex;
-		width: 350px;
-		height: 111px;
-	}
-
-	.playing-slider:hover {
-		background-color: aliceblue;
-	}
-
-	.available-soundboard-container {
-		position: absolute;
-		left: 42px;
-		padding-top: 15px;
-		width: 40%;
-		top: 80px;
-	}
-
-	.playing-soundboard-container {
-		position: absolute;
-		padding-top: 15px;
-		left: 45%;
-		top: 92px;
-	}
-
-	.reset-wrapper {
-		display: flex;
-	}
-
-	.search {
-		display: flex; 
-		width: 100% !important;
-	}
-
-	.reset {
-		margin: auto; 
-		margin-top: 10px; 
-		margin-bottom: 10px; 
-	}
-}
-
 .welcome {
 	margin-top: 25%;
 	font-size: 3rem;
@@ -292,5 +221,106 @@ figcaption {
 		opacity: 0;
 		display: none;
 		visibility: hidden;
+	}
+}
+
+@media only screen and (max-device-width: 991px) {
+	.available-soundboard-container::after {
+		float: right;
+		clear: both;
+	}
+
+	.bd-navbar {
+		height: 55px;
+	}
+
+	.category-text {
+		margin-left: 5px;
+		margin-top: 5px;
+		font-size: 15px;
+		display: block;
+		font-weight: 500;
+	}
+
+	.font-weight-light {
+		margin-left: 5px;
+	}
+
+	.nav-title {
+		display: none;
+	}
+
+	.navbar {
+		position: relative !important;
+	}
+	
+	.playing-slider {
+		display: flex;
+		width: 100%;
+		height: 111px;
+	}
+
+	.playing-soundboard-container {
+		width: 100%;
+		display: flexbox;
+	}
+
+	.search {
+		display: flex;
+		width: 100% !important;
+	}
+
+	.soundboard {
+		display: flexbox;
+	}
+
+	.sound-slider {
+		display: flex;
+		width: 100%;
+	}
+
+	.soundboard-title {
+		margin-left: 5px;
+	}
+}
+
+@media only screen and (min-device-width: 992px) {
+	.main {
+		justify-content: space-between;
+	}
+
+	.soundboard {
+		display: flex;
+		justify-content: center;
+	}
+
+	.playing-slider {
+		display: inline-flex;
+		width: 350px;
+		height: 111px;
+	}
+
+	.playing-slider:hover {
+		background-color: aliceblue;
+	}
+
+	.available-soundboard-container {
+		position: absolute;
+		left: 42px;
+		padding-top: 15px;
+		width: 40%;
+		top: 80px;
+	}
+
+	.playing-soundboard-container {
+		position: absolute;
+		padding-top: 15px;
+		left: 45%;
+		top: 92px;
+	}
+
+	.search {
+		display: flex;
+		width: 100% !important;
 	}
 }

@@ -61,7 +61,7 @@ soundsCategory["preset"] = preset;
 class Start extends React.Component {
 	constructor(props) {
 		super(props);
-		
+
 		this.state = {
 			start: false 
 		}
@@ -445,10 +445,12 @@ function SoundboardContainer(props) {
 
 function PlayingSoundboardContainer(props) {
 	return(
-		<ul className="list-group playing-soundboard-container">
-			<p className="soundboard-title">PLAYING</p>
-			{props.children}
-		</ul>
+		<div className="playing-soundboard-container">
+			<ul className="list-group">
+				<p className="soundboard-title">PLAYING</p>
+				{props.children}
+			</ul>
+		</div>
 	)
 }
 
