@@ -447,7 +447,7 @@ function PlayingSoundboardContainer(props) {
 	return(
 		<div className="playing-soundboard-container">
 			<ul className="list-group">
-				<p className="soundboard-title">PLAYING</p>
+				<p id="playing" className="soundboard-title">PLAYING</p>
 				{props.children}
 			</ul>
 		</div>
