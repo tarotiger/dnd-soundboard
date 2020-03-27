@@ -86,9 +86,9 @@ figcaption {
 	overflow: hidden;
 }
 
-.pause-button {
-	height: 30px;
-	width: 30px;
+.playing-button {
+	height: 28px;
+	width: 28px;
 	position: absolute;
 	top: 40px;
 	left: 10px;
@@ -96,10 +96,53 @@ figcaption {
 	background-color: inherit;
 }
 
-.pause-button:hover {
+.playing-button:hover {
 	top: 37px;
-	height: 35px;
-	width: 35px;
+	height: 33px;
+	width: 33px;
+}
+
+.close-wrapper {
+	visibility: hidden;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 350px;
+	height: 110px;
+}
+
+.close-wrapper-controller {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 350px;
+	height: 110px;
+}
+
+.close-wrapper-controller:hover .close-wrapper {
+	visibility: visible;
+}
+
+.close-button {
+	height: 15px;
+	width: 15px;
+	position: absolute;
+	top: -3px;
+	left: 320px;
+	transition: 0.1s;
+	background-color: inherit;
+	cursor: pointer;
+	z-index: 10;
+}
+
+.close-button:hover {
+	left: 315px;
+	height: 20px;
+	width: 20px;
+}
+
+.playing-soundboard-button {
+	background-color: inherit;
 }
 
 .bd-navbar {
@@ -225,7 +268,8 @@ figcaption {
 
 @media only screen and (max-device-width: 991px) {
 	.available-soundboard-container {
-		/* background-color: rgb(202, 201, 201) !important; */
+		margin-left: 8px;
+		margin-right: 8px;
 	}
 
 	.bd-navbar {
