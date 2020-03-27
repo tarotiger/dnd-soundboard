@@ -142,7 +142,6 @@ figcaption {
 .soundboard-title {
 	font-size: 2rem;
 	display: block;
-	font-weight: 500;
 }
 
 .category-text {
@@ -225,18 +224,12 @@ figcaption {
 }
 
 @media only screen and (max-device-width: 991px) {
-	.available-soundboard-container::after {
-		float: right;
-		clear: both;
+	.available-soundboard-container {
+		/* background-color: rgb(202, 201, 201) !important; */
 	}
 
 	.bd-navbar {
 		height: 55px;
-	}
-
-	body {
-		scroll-behavior: smooth;
-		padding-bottom: 10px;
 	}
 
 	.category-text {

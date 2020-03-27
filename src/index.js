@@ -356,6 +356,33 @@ class Soundboard extends React.Component {
 					</div>
 				</header>	
 				<SoundboardContainer>
+					<PlayingSoundboardContainer>
+						{this.props.boards.map((val, step) => {
+							const isPlaying = this.props.boards[step].playing;
+							const volume = this.props.boards[step].soundVolume.gain.value * AUDIO_SENSITIVITY;
+
+							if (step === 0 && numPlaying === 0) {
+								return(
+									<p className="font-weight-light" key={"no-sound"}> No sounds currently playing... </p>
+								);
+							}
+
+							if (this.state.animated[step]) {
+								return(
+									<PlayingSoundSliderContainer 
+										playing={isPlaying}
+										name={val.name}
+										handleClick={() => this.handleClick(step)}
+										volume={volume}
+										step={step}
+										onChange={(i, event) => this.props.onChange(i, event)}>
+									</PlayingSoundSliderContainer>
+								);
+							} else {
+								return(null);
+							}
+						})}
+					</PlayingSoundboardContainer>
 					<AvailableSoundboardContainer>
 						{Object.keys(soundsCategory).map((key, step) => {
 							availableSound = [];
@@ -400,34 +427,6 @@ class Soundboard extends React.Component {
 							);
 						})}
 					</AvailableSoundboardContainer>
-					<PlayingSoundboardContainer>
-						{this.props.boards.map((val, step) => {
-							const isPlaying = this.props.boards[step].playing;
-							const volume = this.props.boards[step].soundVolume.gain.value * AUDIO_SENSITIVITY;
-
-							if (step === 0 && numPlaying === 0) {
-								return(
-									<p className="font-weight-light" key={"no-sound"}> No sounds currently playing... </p>
-								);
-							}
-
-							if (this.state.animated[step]) {
-								return(
-									<PlayingSoundSliderContainer 
-										playing={isPlaying}
-										name={val.name}
-										handleClick={() => this.handleClick(step)}
-										volume={volume}
-										step={step}
-										onChange={(i, event) => this.props.onChange(i, event)}>
-									</PlayingSoundSliderContainer>
-								);
-							} else {
-								return(null);
-							}
-						})}
-					</PlayingSoundboardContainer>
-					
 				</SoundboardContainer>
 			</div>		
 		);
@@ -447,7 +446,7 @@ function PlayingSoundboardContainer(props) {
 	return(
 		<div className="playing-soundboard-container">
 			<ul className="list-group">
-				<p id="playing" className="soundboard-title">PLAYING</p>
+				<p id="playing" className="soundboard-title">Playing</p>
 				{props.children}
 			</ul>
 		</div>
