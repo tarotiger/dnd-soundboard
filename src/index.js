@@ -23,12 +23,15 @@ import tavern from './assets/Tavern.mp3';
 import boss from './assets/Boss.mp3';
 
 import sword from './assets/Sword.mp3';
+import megu from './assets/Megumin.mp3';
+import explosion from './assets/Explosion.mp3';
+import cheer from './assets/Cheer.mp3';
 
 const sounds = [rain, fire, cave, night, festival, haunted, combat, thunder, carriage, goblincave, lostmine, woodland, tavernmusic, medievaltown, tavern, boss];
-const instant = [sword];
 const AUDIO_SENSITIVITY = 100 / 3; 
 
 // SOUND CATEGORIES 
+const instant = [sword, megu, explosion, cheer];
 const nature = [rain, fire, thunder, woodland];
 const nighttime = [night, haunted];
 const town = [tavernmusic, fire, medievaltown, tavern];
@@ -52,6 +55,7 @@ const unorderedSoundsCategory = {
 
 // Sort the categories alphabetically
 const soundsCategory = {}
+
 Object.keys(unorderedSoundsCategory).sort().forEach(function(key) {
 	soundsCategory[key] = unorderedSoundsCategory[key];
 })
@@ -296,14 +300,6 @@ class Soundboard extends React.Component {
 
 		let animated = Array(sounds.length).fill(false);
 
-		// for (let i = 0; i < this.props.boards.length; i++) {
-		// 	if (this.props.boards[i].playing) {
-		// 		animated[i] = true;
-		// 	} else {
-		// 		animated[i] = false; 
-		// 	}
-		// }
-
 		this.state = {
 			animated: animated
 		}
@@ -362,9 +358,14 @@ class Soundboard extends React.Component {
 		})
 	}
 
+	playInstant(sound) {
+		sound.sound.play();
+	}
+
 	render() {
 		let numPlaying = 0; 
 		let availableSound = [];
+
 
 		// Counts the number of tracks currently playing 
 		this.state.animated.forEach((element) => {
@@ -425,6 +426,25 @@ class Soundboard extends React.Component {
 						})}
 					</PlayingSoundboardContainer>
 					<AvailableSoundboardContainer>
+						<React.Fragment>
+							<InstantTitle name={"Instant"} />
+							<ul className="icon-container instant-container">
+								{instant.map((val, step) => {
+									availableSound = [];
+
+									const instantSound = createInstantSound(val);
+									
+									return(
+										<AvailableSoundSliderContainer 
+											name={instantSound.name}
+											handleClick={() => this.playInstant(instantSound)}
+											step={instantSound.name}>
+										</AvailableSoundSliderContainer>
+									)
+								})}
+							</ul>
+						</React.Fragment>
+						
 						{Object.keys(soundsCategory).map((key, step) => {
 							availableSound = [];
 							soundsCategory[key].map((soundimport, i) => {
@@ -439,16 +459,11 @@ class Soundboard extends React.Component {
 									}
 								}
 
-								const isPlaying = sound.playing;
-								const volume = sound.soundVolume.gain.value * AUDIO_SENSITIVITY;
 								if (!this.state.animated[index] && this.props.displayed[index]) {
 									availableSound.push(<AvailableSoundSliderContainer 
-										playing={isPlaying}
 										name={sound.name}
 										handleClick={() => this.openSoundSlider(index)}
-										volume={volume}
-										step={index}
-										onChange={(index, event) => this.props.onChange(index, event)}>
+										step={index}>
 									</AvailableSoundSliderContainer>)
 								}
 								return(null);
@@ -541,11 +556,18 @@ function PlayingSoundSliderContainer(props) {
 	)
 }
 
-
 // Contains the title of each category
 function CategoryTitle(props) {
 	return (
 		<div className="category-title">
+			<p className="category-text"> {props.name.charAt(0).toUpperCase() + props.name.slice(1)} </p>
+		</div>
+	)
+}
+
+function InstantTitle(props) {
+	return (
+		<div className="category-title instant-container">
 			<p className="category-text"> {props.name.charAt(0).toUpperCase() + props.name.slice(1)} </p>
 		</div>
 	)
@@ -559,9 +581,10 @@ function AvailableSoundSliderContainer(props) {
 			<figure>
 				<div 
 					className="hover-button"> 
-					<img className="play-button" alt="play button" src={require("./assets/play.png")}/> 
+					<img className="play-button" alt="play button" src={require("./assets/play.png")}/> 	
 				</div>
 				<img 
+				className="icon-image"
 				onClick={() => props.handleClick(props.step)}
 				alt="sound" src={require("./assets/" + props.name + ".png")}/>
 				<figcaption> {props.name} </figcaption>
@@ -586,6 +609,34 @@ class SoundSlider extends React.Component {
 // Returns the name of the mp3 file from import 
 const getMP3Name = (importName) => {
 	return importName.split("/")[3].split(".")[0];
+}
+
+const createInstantSound = (src) => {
+	// Dynamically generate audio elements 
+	let audioDOM = document.createElement("audio");
+	audioDOM.src = src;
+	audioDOM.type = "audio/*";
+
+	// Uses Web Audio API to increase volume sensitivity 
+	const audio = new AudioContext();
+	const track = audio.createMediaElementSource(audioDOM);
+	track.loop = true;
+
+	const gainNode = audio.createGain();
+	gainNode.gain.value = 1.5;
+
+	track.connect(gainNode);
+	gainNode.connect(audio.destination);
+
+	const soundElement = {
+		sound: audioDOM,
+		soundVolume: gainNode,
+		soundContext: audio,
+		volume: 100,
+		name: getMP3Name(src)
+	}
+
+	return soundElement;
 }
 
 const createAudioElement = (src) => {
