@@ -16,13 +16,7 @@ ul li img {
 	height: 70px;
 	border-radius: 5px;
 	margin: 8px;
-	background-color: white;
 	transition: 0.3s;
-}
-
-ul li figure img:hover {
-	cursor: pointer;
-	opacity: 0.3;
 }
 
 ul li figure div img {
@@ -56,12 +50,23 @@ figcaption {
 
 .hover-button {
 	position: absolute;
-	z-index: -1;
+	transition: 0.1s;
 }
 
-.hover-button img:hover {
+ul li figure:hover .play-button {
+	visibility: visible;
+	opacity: 1.0;
 	display: block;
-	background-color: #ffffff;
+}
+
+ul li figure:hover .icon-image {
+	cursor: pointer;
+	opacity: 0.3;
+}
+
+.play-button {
+	visibility: hidden; 
+	opacity: 0;
 }
 
 .soundboard-container {
@@ -72,15 +77,22 @@ figcaption {
 .category-title {
 	grid-column: 1;
 	color: #4b4b4bcb;
-	border-bottom: 1px solid #4b4b4bcb;
+	border-bottom: 1px solid grey;
 	margin-top: 1rem; 
+	padding-left: 8px;
 }
 
 .icon-container {
 	grid-column: 2;
-	border-bottom: 1px solid #4b4b4bcb;
+	border-bottom: 1px solid grey;
 	margin: 0px;
 	margin-top: 1rem;
+}
+
+.instant-container {
+	background-color: rgb(201, 201, 201) !important;
+	padding-top: 5px;
+	border-radius: 1px;
 }
 
 .soundboard-icon {
