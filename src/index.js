@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css'
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
+import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Available from './components/available.js';
+import Playing from './components/playing.js';
+import Utility from './utility/audio.js';
+import SoundboardContainer from './container.js';
 
 import rain from './assets/Rain.mp3';
 import fire from './assets/Fire.mp3';
@@ -113,13 +115,13 @@ class Board extends React.Component {
 		if (storedSound === null) {
 			sound = [];
 			for (let i = 0; i < sounds.length; i++) {
-				sound.push(createAudioElement(sounds[i]));
+				sound.push(Utility.createAudioElement(sounds[i]));
 			}
 		} else {
 			storedSound = JSON.parse(storedSound);
 			console.log(storedSound);
 			for (let i = 0; i < sounds.length; i++) {
-				let audioElement = createAudioElement(sounds[i]);
+				let audioElement = Utility.createAudioElement(sounds[i]);
 
 				if (storedSound[i].playing) {
 					audioElement.sound.play();
@@ -192,7 +194,7 @@ class Board extends React.Component {
 
 		let sound = [];
 		for (let i = 0; i < sounds.length; i++) {
-			sound.push(createAudioElement(sounds[i]));
+			sound.push(Utility.createAudioElement(sounds[i]));
 		}
 
 		localStorage.setItem('sound', JSON.stringify(sound));
@@ -396,7 +398,7 @@ class Soundboard extends React.Component {
 					</div>
 				</header>	
 				<SoundboardContainer>
-					<PlayingSoundboardContainer>
+					<Playing.SoundboardContainer>
 						{this.props.boards.map((val, step) => {
 							const isPlaying = this.props.boards[step].playing;
 							const volume = this.props.boards[step].soundVolume.gain.value * AUDIO_SENSITIVITY;
@@ -409,7 +411,7 @@ class Soundboard extends React.Component {
 
 							if (this.state.animated[step]) {
 								return(
-									<PlayingSoundSliderContainer 
+									<Playing.Soundboard
 										animated={this.state.animated[step]}
 										playing={isPlaying}
 										name={val.name}
@@ -418,28 +420,28 @@ class Soundboard extends React.Component {
 										volume={volume}
 										step={step}
 										onChange={(i, event) => this.props.onChange(i, event)}>
-									</PlayingSoundSliderContainer>
+									</Playing.Soundboard>
 								);
 							} else {
 								return(null);
 							}
 						})}
-					</PlayingSoundboardContainer>
-					<AvailableSoundboardContainer>
+					</Playing.SoundboardContainer>
+					<Available.SoundboardContainer>
 						<React.Fragment>
-							<InstantTitle name={"Instant"} />
+							<Available.InstantTitle name={"Instant"} />
 							<ul className="icon-container instant-container">
 								{instant.map((val, step) => {
 									availableSound = [];
 
-									const instantSound = createInstantSound(val);
+									const instantSound = Utility.createInstantSound(val);
 									
 									return(
-										<AvailableSoundSliderContainer 
+										<Available.IconContainer
 											name={instantSound.name}
 											handleClick={() => this.playInstant(instantSound)}
 											step={instantSound.name}>
-										</AvailableSoundSliderContainer>
+										</Available.IconContainer>
 									)
 								})}
 							</ul>
@@ -452,7 +454,7 @@ class Soundboard extends React.Component {
 								let index;
 
 								for (let j = 0; j < this.props.boards.length; j++) {
-									if (this.props.boards[j].name === getMP3Name(soundimport)) {
+									if (this.props.boards[j].name === Utility.getMP3Name(soundimport)) {
 										sound = this.props.boards[j];
 										index = j; 
 										break; 
@@ -460,11 +462,12 @@ class Soundboard extends React.Component {
 								}
 
 								if (!this.state.animated[index] && this.props.displayed[index]) {
-									availableSound.push(<AvailableSoundSliderContainer 
+									availableSound.push(
+									<Available.IconContainer
 										name={sound.name}
 										handleClick={() => this.openSoundSlider(index)}
 										step={index}>
-									</AvailableSoundSliderContainer>)
+									</Available.IconContainer>)
 								}
 								return(null);
 							}) 
@@ -475,198 +478,17 @@ class Soundboard extends React.Component {
 
 							return(
 								<React.Fragment>
-									<CategoryTitle name={key}></CategoryTitle>
+									<Available.CategoryTitle name={key}></Available.CategoryTitle>
 									<ul className="icon-container">
 										{availableSound}
 									</ul>
 								</React.Fragment>
 							);
 						})}
-					</AvailableSoundboardContainer>
+					</Available.SoundboardContainer>
 				</SoundboardContainer>
 			</div>		
 		);
-	}
-}
-
-// Containment for soundsliders 
-function SoundboardContainer(props) {
-	return (
-		<div className="soundboard">
-			{props.children}
-		</div>
-	)
-}
-
-function PlayingSoundboardContainer(props) {
-	return(
-		<div className="playing-soundboard-container">
-			<ul className="list-group">
-				<p id="playing" className="soundboard-title">Playing</p>
-				{props.children}
-			</ul>
-		</div>
-	)
-}
-
-function AvailableSoundboardContainer(props) {
-	return(
-		<div className="available-soundboard-container">
-			<div className="soundboard-container">
-				{props.children}
-			</div>	
-		</div>
-	)
-}
-
-// Container for sound sliders 
-// Requires props: playing (bool), name(string) 
-function PlayingSoundSliderContainer(props) {
-	return (
-		<li 
-			className={"playing-slider list-group-item " + (props.animated ? "slide-in-animation" : "slide-out-animation")}
-			key={props.name}>
-			<div className="close-wrapper-controller">
-				<div className="close-wrapper">
-					<img 
-						onClick={() => props.handleSoundSlider(props.step)}
-						className="close-button" 
-						alt="close" 
-						src={require("./assets/close.png")}/>
-				</div>
-			</div>
-			<p className={"text-left"}>{props.name}</p>
-			<img alt={props.name} className="playing-image" src={require("./assets/" + props.name + ".png")} />
-			<div
-				className="playing-soundboard-button"
-				onClick={() => props.handleClick(props.step)}>
-				{props.playing ? (
-					<img className="playing-button" alt="pause button" src={require("./assets/pause.png")} />
-				) : (
-					<img className="playing-button" alt="pause button" src={require("./assets/play.png")} />
-				)}
-			</div>
-			<div className="slider-container">
-				<SoundSlider 
-					volume={props.volume}
-					onChange={(event) => props.onChange(props.step, event)}
-				/>
-			</div>	
-		</li>
-	)
-}
-
-// Contains the title of each category
-function CategoryTitle(props) {
-	return (
-		<div className="category-title">
-			<p className="category-text"> {props.name.charAt(0).toUpperCase() + props.name.slice(1)} </p>
-		</div>
-	)
-}
-
-function InstantTitle(props) {
-	return (
-		<div className="category-title instant-container">
-			<p className="category-text"> {props.name.charAt(0).toUpperCase() + props.name.slice(1)} </p>
-		</div>
-	)
-}
-
-// Container for sound sliders 
-// Requires props: playing (bool), name(string) 
-function AvailableSoundSliderContainer(props) {
-	return (
-		<li key={props.name}>
-			<figure>
-				<div 
-					className="hover-button"> 
-					<img className="play-button" alt="play button" src={require("./assets/play.png")}/> 	
-				</div>
-				<img 
-				className="icon-image"
-				onClick={() => props.handleClick(props.step)}
-				alt="sound" src={require("./assets/" + props.name + ".png")}/>
-				<figcaption> {props.name} </figcaption>
-			</figure>
-		</li>
-	)
-}
-
-class SoundSlider extends React.Component {
-	render() {
-		return(
-			<Slider
-				min={0}
-				max={100}
-				value={this.props.volume}
-				onChange={this.props.onChange}
-			/>
-		)
-	}
-}
-
-// Returns the name of the mp3 file from import 
-const getMP3Name = (importName) => {
-	return importName.split("/")[3].split(".")[0];
-}
-
-const createInstantSound = (src) => {
-	// Dynamically generate audio elements 
-	let audioDOM = document.createElement("audio");
-	audioDOM.src = src;
-	audioDOM.type = "audio/*";
-
-	// Uses Web Audio API to increase volume sensitivity 
-	const audio = new AudioContext();
-	const track = audio.createMediaElementSource(audioDOM);
-	track.loop = true;
-
-	const gainNode = audio.createGain();
-	gainNode.gain.value = 1.5;
-
-	track.connect(gainNode);
-	gainNode.connect(audio.destination);
-
-	const soundElement = {
-		sound: audioDOM,
-		soundVolume: gainNode,
-		soundContext: audio,
-		volume: 100,
-		name: getMP3Name(src)
-	}
-
-	return soundElement;
-}
-
-const createAudioElement = (src) => {
-	// Dynamically generate audio elements 
-	let audioDOM = document.createElement("audio");
-	audioDOM.src = src;
-	audioDOM.type = "audio/*";
-	audioDOM.addEventListener('ended', function () {
-		this.currentTime = 0;
-		this.play();
-	}, false);
-
-	// Uses Web Audio API to increase volume sensitivity 
-	const audio = new AudioContext();
-	const track = audio.createMediaElementSource(audioDOM);
-	track.loop = true;
-
-	const gainNode = audio.createGain();
-	gainNode.gain.value = 1.5;
-
-	track.connect(gainNode);
-	gainNode.connect(audio.destination);
-
-	return {
-		sound: audioDOM,
-		soundVolume: gainNode,
-		soundContext: audio,
-		volume: 50,
-		name: getMP3Name(src),
-		playing: false
 	}
 }
 
