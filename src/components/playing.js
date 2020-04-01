@@ -1,6 +1,6 @@
 import React from 'react';
 import '../index.css';
-import SoundSlider from './slider.js';
+import Slider from './slider.js';
 
 function SoundboardContainer(props) {
 	return(
@@ -39,7 +39,7 @@ function Soundboard(props) {
 				)}
 			</div>
 			<div className="slider-container">
-				<SoundSlider 
+				<Slider.SoundSlider 
 					volume={props.volume}
 					onChange={(event) => props.onChange(props.step, event)}
 				/>
