@@ -1,6 +1,7 @@
 import React from "react";
 import Container from "./container.js";
 import NavBar from "./navbar.js";
+import Project from "./project.js";
 import Title from "./title.js";
 
 export default class HomePage extends React.Component {
@@ -30,12 +31,16 @@ export default class HomePage extends React.Component {
     render() {
         // TODO: Test case 
         let myText;
+        let myPage; 
         if (this.state.home === true) {
             myText = "My Projects";
+            myPage = <Project/>;
         } else if (this.state.blog === true) {
             myText = "Random Thoughts";
+            myPage = <div>Here are my random thoughts</div>;
         } else {
-            myText = "Contact"
+            myText = "Contact";
+            myPage = <div>Contact here</div>;
         }
         
         return (
@@ -43,7 +48,7 @@ export default class HomePage extends React.Component {
                 <NavBar handleClick={this.switchTabs.bind(this)}/>
                 <Title handleClick={this.switchTabs.bind(this)}/>
                 <Container title={myText}>
-                    <div>{myText}</div>
+                    {myPage}
                 </Container>
             </React.Fragment>  
         )
