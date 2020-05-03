@@ -1,4 +1,12 @@
 .navbar {
-    width: 80%;
+    align-items: center;
+    background-color: lemonchiffon;
+}
+
+.navbar-items {
+    display: flex;
+    justify-content: space-between;
     margin: auto;
+    position: relative;
+    width: 30%;
 }
