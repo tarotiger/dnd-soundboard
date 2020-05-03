@@ -1,5 +1,6 @@
 .content-container {
     background: rgba(204, 204, 204, 0.5);
+    height: 100vh;
     margin: auto;
     position: relative;
     text-align: center;
