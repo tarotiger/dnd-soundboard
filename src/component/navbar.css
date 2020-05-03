@@ -1,6 +1,7 @@
 .navbar {
     align-items: center;
-    background-color: lemonchiffon;
+    background-color: lightskyblue;
+    cursor: pointer;
 }
 
 .navbar-items {

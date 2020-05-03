@@ -1,0 +1,15 @@
+p {
+    color: whitesmoke;
+    font-size: 3em;
+    font-weight: 500;
+}
+
+.title {
+    background-color: royalblue;
+    cursor: pointer;
+    margin: auto;
+    margin-top: 50px;
+    position: relative;
+    text-align: center;
+    width: 30%;
+}
