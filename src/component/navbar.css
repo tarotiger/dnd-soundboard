@@ -1,7 +1,6 @@
 .navbar {
     align-items: center;
     background-color: lightskyblue;
-    cursor: pointer;
 }
 
 .navbar-items {
@@ -10,4 +9,8 @@
     margin: auto;
     position: relative;
     width: 30%;
+}
+
+.navbar-tabs {
+    cursor: pointer;
 }
