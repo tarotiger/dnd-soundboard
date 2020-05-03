@@ -1,9 +1,3 @@
-p {
-    color: whitesmoke;
-    font-size: 3em;
-    font-weight: 500;
-}
-
 .title {
     background-color: royalblue;
     cursor: pointer;
@@ -12,4 +6,11 @@ p {
     position: relative;
     text-align: center;
     width: 30%;
+    z-index: 1;
+}
+
+.title-name {
+    color: whitesmoke;
+    font-size: 3em;
+    font-weight: 500;
 }
