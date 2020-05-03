@@ -1,5 +1,6 @@
 import React from "react";
-import NavBar from "./navbar.js"
+import Container from "./container.js";
+import NavBar from "./navbar.js";
 import Title from "./title.js";
 
 export default class HomePage extends React.Component {
@@ -30,18 +31,20 @@ export default class HomePage extends React.Component {
         // TODO: Test case 
         let myText;
         if (this.state.home === true) {
-            myText = "I am currently at home";
+            myText = "My Projects";
         } else if (this.state.blog === true) {
-            myText = "I am currently at the blog";
+            myText = "Random Thoughts";
         } else {
-            myText = "I am currently at contact"
+            myText = "Contact"
         }
         
         return (
             <React.Fragment>
                 <NavBar handleClick={this.switchTabs.bind(this)}/>
                 <Title handleClick={this.switchTabs.bind(this)}/>
-                <div>{myText}</div>
+                <Container title={myText}>
+                    <div>{myText}</div>
+                </Container>
             </React.Fragment>  
         )
     }
