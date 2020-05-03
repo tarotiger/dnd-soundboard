@@ -1,5 +1,6 @@
 import React from "react";
 import NavBar from "./navbar.js"
+import Title from "./title.js";
 
 export default class HomePage extends React.Component {
     constructor(props) {
@@ -39,6 +40,7 @@ export default class HomePage extends React.Component {
         return (
             <React.Fragment>
                 <NavBar handleClick={this.switchTabs.bind(this)}/>
+                <Title handleClick={this.switchTabs.bind(this)}/>
                 <div>{myText}</div>
             </React.Fragment>  
         )
