@@ -1,4 +1,5 @@
 import React from "react";
+import About from "./about.js";
 import Container from "./container.js";
 import NavBar from "./navbar.js";
 import Project from "./project.js";
@@ -10,7 +11,7 @@ export default class HomePage extends React.Component {
         this.state = {
             home: true,
             blog: false,
-            contact: false 
+            about: false 
         }
     }
 
@@ -18,7 +19,7 @@ export default class HomePage extends React.Component {
         let tabs = {
             home: false,
             blog: false,
-            contact: false
+            about: false
         }
         tabs[tab] = true; 
 
@@ -39,8 +40,8 @@ export default class HomePage extends React.Component {
             myText = "Random Thoughts";
             myPage = <div>Here are my random thoughts</div>;
         } else {
-            myText = "Contact";
-            myPage = <div>Contact here</div>;
+            myText = "Introduction";
+            myPage = <About/>;
         }
         
         return (
