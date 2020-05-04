@@ -6,9 +6,9 @@ export default class NavBar extends React.Component {
         return (
             <nav className="navbar">
                 <div className="navbar-items">
-                    <div className="navbar-tabs"><a href="https://github.com/kenxmel">github</a></div>
-                    <div className="navbar-tabs" onClick={() => this.props.handleClick("blog")}>blog</div>
-                    <div className="navbar-tabs" onClick={() => this.props.handleClick("contact")}>contact me</div>
+                    <div className="navbar-tabs" onClick={() => this.props.handleClick("home")}>Home</div>
+                    <div className="navbar-tabs" onClick={() => this.props.handleClick("blog")}>Blog</div>
+                    <div className="navbar-tabs" onClick={() => this.props.handleClick("contact")}>Contact Me</div>
                 </div>
             </nav>
         );
