@@ -1,9 +1,10 @@
 .navbar {
     align-items: center;
-    background-color: lightskyblue;
+    background-color: black;
 }
 
 .navbar-items {
+    color: white;
     display: flex;
     justify-content: space-between;
     margin: auto;
