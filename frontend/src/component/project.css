@@ -1,0 +1,74 @@
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.button-container {
+    height: 50px;
+    width: 100%;
+}
+
+.button-container button {
+    display: inline-block;
+    height: inherit;
+    line-height: normal;
+    text-align: center;
+    vertical-align: top;
+    width: 50%;
+}
+
+.projects-container {
+    background-color: white;
+    display: inline-block; 
+    grid-template-columns: max-content;
+    padding: 25px;
+    margin: 30px;
+    vertical-align: top;
+}
+
+.button-github-only {
+    height: 50px;
+    width: 100%;
+}
+
+.project-description {
+    grid-row: 2;
+    text-align: left;
+    width: 350px;
+}
+
+.project-github {
+    height: 40px;
+    margin: auto;
+    overflow: hidden;
+    width: auto;
+}
+
+.project-image {
+    max-width: 100%;
+}
+
+.project-info {
+    color: royalblue;
+    text-emphasis: italic;
+    width: inherit;
+}
+
+.project-name {
+    color: grey;
+    font-size: 1.5em;
+    margin-top: 15px;
+}
+
+.project-summary {
+    width: inherit;
+}
+
+.project-thumbnail {
+    grid-row: 1;
+    height: auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    width: 350px;
+}

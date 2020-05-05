@@ -1,0 +1,19 @@
+.content-container {
+    background: lightgrey;
+    height: auto;
+    margin: auto;
+    position: relative;
+    text-align: center;
+    top: -60px;
+    width: 75%;
+}
+
+.tab-title {
+    font-size: 3em;
+    font-weight: 600;
+    padding-top: 60px;
+    margin: auto;
+    text-align: center;
+    text-decoration: underline;
+    width: 90%;
+}

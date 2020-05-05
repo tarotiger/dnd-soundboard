@@ -1,0 +1,21 @@
+.title {
+    background-color: black;
+    cursor: pointer;
+    margin: auto;
+    position: relative;
+    text-align: center;
+    width: 30%;
+    z-index: 1;
+}
+
+.title-name {
+    color: whitesmoke;
+    font-size: 3em;
+    font-weight: 500;
+}
+
+.title-wrapper {
+    background-color: dimgrey;
+    padding-top: 100px;
+    width: 100%;
+}
