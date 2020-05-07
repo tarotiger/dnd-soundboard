@@ -36,13 +36,16 @@ export default class About extends React.Component {
 
         axios({
             method: "POST",
-            url: "insertsomeurlhere",
+            url: "http://localhost:5000/send",
             data: this.state 
         })
-        .catch((error) => console.log(":explosion:", error))
         .then((response) => {
-            alert("Message sent");
-            this.resetForm();
+            if (response.data.status === 'success') {
+                alert("Message sent");
+                this.resetForm();
+            } else {
+                alert("message failed to send");
+            }
         })
     }
 
@@ -71,7 +74,7 @@ export default class About extends React.Component {
                     </div>
                     <div className="form-group">
                         <label htmlFor="exampleInputEmail1">Email address</label>
-                        <input type="email" className="form-control" aria-describedby="emailHelp" value={this.state.email} onChange={this.onEmailChange.bind(this)} />
+                        <input type="email" className="form-control" aria-describedby="emailHelp" value={this.state.email} onChange={this.onMailChange.bind(this)} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="message">Message</label>
