@@ -1,5 +1,5 @@
 import React from "react";
-import About from "./about.js";
+import Contact from './contact.js'
 import Container from "./container.js";
 import NavBar from "./navbar.js";
 import Project from "./project.js";
@@ -10,16 +10,16 @@ export default class HomePage extends React.Component {
         super(props);
         this.state = {
             home: true,
-            blog: false,
-            about: false 
+            about: false,
+            contact: false
         }
     }
 
     switchTabs(tab) {
         let tabs = {
             home: false,
-            blog: false,
-            about: false
+            about: false,
+            contact: false
         }
         tabs[tab] = true; 
 
@@ -36,12 +36,12 @@ export default class HomePage extends React.Component {
         if (this.state.home === true) {
             myText = "My Projects";
             myPage = <Project/>;
-        } else if (this.state.blog === true) {
-            myText = "Random Thoughts";
+        } else if (this.state.about === true) {
+            myText = "About Me";
             myPage = <div>Here are my random thoughts</div>;
         } else {
-            myText = "Introduction";
-            myPage = <About/>;
+            myText = "Contact Form";
+            myPage = <Contact/>;
         }
         
         return (
