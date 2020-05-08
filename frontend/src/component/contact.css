@@ -1,0 +1,21 @@
+label {
+    text-align: left;
+}
+
+#contact-form {
+    background: white;
+    margin: 30px auto;
+    padding: 15px;
+    width: fit-content;
+}
+
+.about-text {
+    background-color: white;
+}
+
+.form-group {
+    margin: auto;
+    padding-bottom: 15px;
+    text-align: left;
+    width: 500px;
+}

@@ -1,8 +1,8 @@
 import React from "react";
 import axios from "axios";
-import "./about.css";
+import "./contact.css";
 
-export default class About extends React.Component {
+export default class Contact extends React.Component {
     constructor(props) {
         super(props);
 
@@ -60,14 +60,8 @@ export default class About extends React.Component {
     render() {
         return(
             <React.Fragment>
-                <div>
-                    <p className="about-text">
-                        Hi, I'm Kenneth Lu. Currently undertaking a Bachelor of Science 
-                        (Computer Science). On the side, 
-                    </p>
-                </div>
-
                 <form id="contact-form" onSubmit={this.handleSubmit.bind(this)} method="POST">
+                    <p>Please fill out the contact form below if you wish to communicate</p>
                     <div className="form-group">
                         <label htmlFor="name">Name</label>
                         <input type="text" className="form-control" value={this.state.name} onChange={this.onNameChange.bind(this)} />
@@ -80,7 +74,7 @@ export default class About extends React.Component {
                         <label htmlFor="message">Message</label>
                         <textarea className="form-control" rows="5" value={this.state.message} onChange={this.onMessageChange.bind(this)} />
                     </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn-lg btn-primary">Submit</button>
                 </form>
             </React.Fragment>
         );
