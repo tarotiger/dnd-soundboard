@@ -2,15 +2,15 @@ label {
     text-align: left;
 }
 
-#contact-form {
-    background: white;
-    margin: 30px auto;
-    padding: 15px;
-    width: fit-content;
-}
-
 .about-text {
     background-color: white;
+}
+
+.contact-form {
+    height: 470px;
+    margin: 30px auto;
+    padding: 15px;
+    width: 530px;
 }
 
 .form-group {
@@ -18,4 +18,14 @@ label {
     padding-bottom: 15px;
     text-align: left;
     width: 500px;
+}
+
+.form-message {
+    resize: none;
+}
+
+.success-message {
+    color: limegreen;
+    font-size: 2rem;
+    padding-top: 10px;
 }

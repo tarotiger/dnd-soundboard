@@ -40,7 +40,7 @@ export default class HomePage extends React.Component {
             myText = "About Me";
             myPage = <div>Here are my random thoughts</div>;
         } else {
-            myText = "Contact Form";
+            myText = "Contact Me";
             myPage = <Contact/>;
         }
         
