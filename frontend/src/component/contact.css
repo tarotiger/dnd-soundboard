@@ -8,7 +8,7 @@ label {
 
 .contact-form {
     height: 470px;
-    margin: 30px auto;
+    margin: auto;
     padding: 15px;
     width: 530px;
 }
@@ -24,8 +24,16 @@ label {
     resize: none;
 }
 
-.success-message {
-    color: limegreen;
+.mail-status {
     font-size: 2rem;
-    padding-top: 10px;
+    padding-top: 15px;
+}
+
+.sending-gif {
+    align-items: center;
+    display: flex;
+    height: 470px;
+    justify-content: center;
+    padding: 15px;
+    width: 530px;
 }

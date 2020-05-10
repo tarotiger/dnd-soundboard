@@ -11,7 +11,8 @@ export default class Contact extends React.Component {
             email: '',
             message: '',
             sending: false,
-            sent: false
+            sent: false,
+            status: ''
         }
     }
 
@@ -48,12 +49,14 @@ export default class Contact extends React.Component {
         .then((response) => {
             if (response.data.status === 'success') {
                 this.setState({
-                    sent: true 
+                    sent: true,
+                    status: 'Message sent successfully!'
                 })
-                alert("Message sent");
                 this.resetForm();
             } else {
-                alert("message failed to send");
+                this.setState({
+                    status: 'Message failed to send...'
+                })
             }
         })
     }
@@ -72,29 +75,30 @@ export default class Contact extends React.Component {
             <React.Fragment>
                 {this.state.sending ? (
                     <div className="contact-form">
-                        <img alt="sending-gif" src={require("../assets/sending.gif")}></img>
+                        <img alt="sending-gif" className="sending-gif" src={require("../assets/sending.gif")}></img>
                     </div> 
                 ) : (
                     <React.Fragment>
+                        <form className="contact-form" onSubmit={this.handleSubmit.bind(this)} method="POST">
+                            <p>Drop me a message below</p>
+                            <div className="form-group">
+                                <label htmlFor="name">Name</label>
+                                <input type="text" className="form-control" value={this.state.name} onChange={this.onNameChange.bind(this)} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputEmail1">Email address</label>
+                                <input type="email" className="form-control" aria-describedby="emailHelp" value={this.state.email} onChange={this.onMailChange.bind(this)} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="message">Message</label>
+                                <textarea className="form-control form-message" rows="5" value={this.state.message} onChange={this.onMessageChange.bind(this)} />
+                            </div>
+                            <button type="submit" className="btn-lg btn-primary">Submit</button>
+                        </form>
                         {this.state.sent ? (
-                            <p className="success-message">Message successfully sent</p>
-                        ): (
-                            <form className="contact-form" onSubmit={this.handleSubmit.bind(this)} method="POST">
-                                <p>Drop me a message below</p>
-                                <div className="form-group">
-                                    <label htmlFor="name">Name</label>
-                                    <input type="text" className="form-control" value={this.state.name} onChange={this.onNameChange.bind(this)} />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="exampleInputEmail1">Email address</label>
-                                    <input type="email" className="form-control" aria-describedby="emailHelp" value={this.state.email} onChange={this.onMailChange.bind(this)} />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="message">Message</label>
-                                    <textarea className="form-control form-message" rows="5" value={this.state.message} onChange={this.onMessageChange.bind(this)} />
-                                </div>
-                                <button type="submit" className="btn-lg btn-primary">Submit</button>
-                            </form>
+                            <p className="mail-status">{this.state.status}</p>
+                        ) : (
+                            null
                         )}
                     </React.Fragment>
                 )}
