@@ -1,6 +1,13 @@
 .navbar {
     align-items: center;
     background-color: black;
+    height: 40px;
+    padding: 0px;
+    transition: 0.3s;
+}
+
+.navbar:hover {
+    height: 60px; 
 }
 
 .navbar-items {
@@ -12,6 +19,27 @@
     width: 30%;
 }
 
+
 .navbar-tabs {
     cursor: pointer;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    transition: 0.5s;
+    width: 80px;
+}
+
+.navbar-tabs:hover {
+    font-size: 1.5rem;
+}
+
+@keyframes tab-animate {
+    from {
+        height: 40px;
+        line-height: 40px;
+    }
+    to {
+        height: 60px;
+        line-height: 60px;
+    }
 }
