@@ -17,19 +17,30 @@ a {
     width: 50%;
 }
 
+.button-github-only {
+    height: 50px;
+    width: 100%;
+}
+
+.project-1 {
+    animation: 0.5s ease-in 0s 1 projectLoad; 
+}
+
+.project-2 {
+    animation: 0.8s ease-in 0s 1 projectLoad; 
+}
+
+.project-3 {
+    animation: 1.1s ease-in 0s 1 projectLoad; 
+}
+
 .projects-container {
-    animation: 1s ease-out 0s 1 projectLoad; 
     background-color: white;
     display: inline-block; 
     grid-template-columns: max-content;
     padding: 25px;
     margin: 30px;
     vertical-align: top;
-}
-
-.button-github-only {
-    height: 50px;
-    width: 100%;
 }
 
 .project-description {
@@ -76,9 +87,11 @@ a {
 
 @keyframes projectLoad {
     from {
-        transform: rotateY(90deg);
+        visibility: hidden;
+        transform: scaleX(0) scaleY(0);
     }
     tp {
-        transform: rotateY(0deg);
+        visibility: visible;
+        transform: scaleX(1) scaleY(1);
     }
 }

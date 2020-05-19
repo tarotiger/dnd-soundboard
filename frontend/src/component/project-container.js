@@ -4,7 +4,7 @@ import "./project-container.css";
 export default class ProjectContainer extends React.Component {
     render() {
         return(
-            <div className="projects-container">
+            <div className={"projects-container " + this.props.class}>
                 <div className="project-thumbnail">
                     <a href={this.props.url}> 
                         <img alt="dnd-soundboard" className="project-image" src={this.props.img}></img>

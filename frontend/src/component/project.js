@@ -10,6 +10,7 @@ export default class Project extends React.Component {
         return(
             <React.Fragment>
                 <ProjectContainer
+                    class={"project-1"}
                     url={"https://kenxmel.github.io/dnd-soundboard/"}
                     projectUrl={"http://dnd-soundboard.herokuapp.com/"}
                     githubUrl={"https://github.com/kenxmel/dnd-soundboard"}
@@ -25,6 +26,7 @@ export default class Project extends React.Component {
                     their desired sounds. 
                 </ProjectContainer>
                 <ProjectContainer
+                    class={"project-2"}
                     url={"https://github.com/kenxmel/web-dev-workshop"}
                     githubUrl={"https://github.com/kenxmel/web-dev-workshop"}
                     img={webdev}
@@ -38,6 +40,7 @@ export default class Project extends React.Component {
                     CSS.
                 </ProjectContainer>
                 <ProjectContainer
+                    class={"project-3"}
                     url={"https://github.com/kenxmel/uni-projects"}
                     githubUrl={"https://github.com/kenxmel/uni-projects"}
                     img={uni}
