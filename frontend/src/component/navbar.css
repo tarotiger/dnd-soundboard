@@ -1,13 +1,17 @@
+.active-tab {
+    font-weight: bolder;
+}
+
 .navbar {
     align-items: center;
     background-color: black;
-    height: 40px;
+    height: 50px;
     padding: 0px;
     transition: 0.3s;
 }
 
 .navbar:hover {
-    height: 60px; 
+    height: 70px; 
 }
 
 .navbar-items {
@@ -33,13 +37,12 @@
     font-size: 1.5rem;
 }
 
-@keyframes tab-animate {
+@keyframes select-tab {
     from {
-        height: 40px;
-        line-height: 40px;
+        transform: scaleX(0);
     }
     to {
-        height: 60px;
-        line-height: 60px;
+        transform: scaleX(1);
+        background: gray; 
     }
 }
