@@ -62,7 +62,7 @@ class NavBar extends React.Component {
         super(props);
 
         this.state = {
-            home: true,
+            projects: true,
             about: false,
             contact: false,
             drawer: false
@@ -72,21 +72,21 @@ class NavBar extends React.Component {
     handleClick(tab) {
         this.props.handleClick(tab);
 
-        if (tab === "home") {
+        if (tab === "projects") {
             this.setState({
-                home: true,
+                projects: true,
                 about: false,
                 contact: false
             })
         } else if (tab === "about") {
             this.setState({
-                home: false,
+                projects: false,
                 about: true,
                 contact: false 
             })
         } else {
             this.setState({
-                home: false,
+                projects: false,
                 about: false, 
                 contact: true
             })
@@ -109,7 +109,7 @@ class NavBar extends React.Component {
         const { classes } = this.props;
 
         let text;
-        if (this.state.home === true) {
+        if (this.state.projects === true) {
             text = "My Projects";
         } else if (this.state.about === true) {
             text = "About Me";
@@ -118,7 +118,7 @@ class NavBar extends React.Component {
         }
 
         return (
-            <React.Fragment>
+            <div className={classes.root}>
                 <AppBar
                     color="transparent"
                     position="fixed"
@@ -156,14 +156,14 @@ class NavBar extends React.Component {
                     </div>
                     <Divider />
                     <List>
-                        {["home", "about", "contact"].map((tabs, index) => (
+                        {["projects", "about", "contact"].map((tabs, index) => (
                             <ListItem button key={tabs} onClick={() => this.handleClick(tabs)}>
                                 <ListItemText primary={tabs.charAt(0).toUpperCase() + tabs.slice(1)}/>
                             </ListItem>
                         ))}
                     </List>
                 </Drawer>
-            </React.Fragment>
+            </div>
             // <nav className="navbar">
             //     <div className="navbar-items">
             //         <div className={"navbar-tabs" + (this.state.home ? " active-tab" : "")} onClick={() => this.handleClick("home")}>HOME</div>

@@ -6,11 +6,11 @@ import NavBar from "./navbar.js";
 import Project from "./project.js";
 import Title from "./title.js";
 
-export default class HomePage extends React.Component {
+export default class projectsPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            home: true,
+            projects: true,
             about: false,
             contact: false
         }
@@ -18,7 +18,7 @@ export default class HomePage extends React.Component {
 
     switchTabs(tab) {
         let tabs = {
-            home: false,
+            projects: false,
             about: false,
             contact: false
         }
@@ -34,7 +34,7 @@ export default class HomePage extends React.Component {
         // TODO: Test case 
         let myText;
         let myPage; 
-        if (this.state.home === true) {
+        if (this.state.projects === true) {
             myText = "My Projects";
             myPage = <Project/>;
         } else if (this.state.about === true) {

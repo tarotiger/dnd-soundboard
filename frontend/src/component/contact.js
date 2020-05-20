@@ -80,7 +80,7 @@ export default class Contact extends React.Component {
                 ) : (
                     <React.Fragment>
                         <form className="contact-form" onSubmit={this.handleSubmit.bind(this)} method="POST">
-                            <p>Drop me a message below</p>
+                            <p className="form-text">Drop me a message below</p>
                             <div className="form-group">
                                 <label htmlFor="name">Name</label>
                                 <input type="text" className="form-control" value={this.state.name} onChange={this.onNameChange.bind(this)} />
