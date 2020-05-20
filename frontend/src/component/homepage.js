@@ -1,4 +1,5 @@
 import React from "react";
+import About from './about.js';
 import Contact from './contact.js'
 import Container from "./container.js";
 import NavBar from "./navbar.js";
@@ -38,7 +39,7 @@ export default class HomePage extends React.Component {
             myPage = <Project/>;
         } else if (this.state.about === true) {
             myText = "About Me";
-            myPage = <div>Here are my random thoughts</div>;
+            myPage = <About/>;
         } else {
             myText = "Contact Me";
             myPage = <Contact/>;

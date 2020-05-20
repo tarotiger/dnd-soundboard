@@ -1,20 +1,23 @@
 .content-container {
-    background: lightgrey;
+    background-color: white;
     height: auto;
     margin: auto;
     min-height: 700px;
     position: relative;
     text-align: center;
-    top: -60px;
-    width: 75%;
+    max-width: 1000px;
+    width: 50%;
 }
 
 .tab-title {
-    font-family: Montserrat;
+    animation: type 4s steps(60, end);
+    font-family: sans-serif;
     font-size: 3em;
     font-weight: 600;
-    padding-top: 60px;
     margin: auto;
+    overflow: hidden;
+    padding-top: 20px;
     text-align: center;
+    white-space: nowrap;
     width: 90%;
 }

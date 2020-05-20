@@ -4,19 +4,28 @@
     margin: auto;
     position: relative;
     text-align: center;
-    width: 30%;
+    top: 100px;
+    width: 500px;
     z-index: 1;
 }
 
 .title-name {
+    animation: type 2s steps(60, end);
     color: whitesmoke;
     font-family: monospace;
     font-size: 3em;
     font-weight: 500;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 500px;
 }
 
 .title-wrapper {
-    background-color: dimgrey;
-    padding-top: 100px;
     width: 100%;
+}
+
+@keyframes type {
+    from {
+        width: 0;
+    }
 }
