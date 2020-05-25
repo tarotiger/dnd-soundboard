@@ -2,14 +2,6 @@ import React from "react";
 import "./about.css";
 
 export default class About extends React.Component {
-    constructor(props) {
-        super(props);
-
-        let state = {
-            image: 0
-        }
-    }
-
     render() {
         return(
             <React.Fragment>

@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import "./navbar.css";
-import { makeStyles, useTheme, withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Divider from "@material-ui/core/Divider";
@@ -164,13 +164,6 @@ class NavBar extends React.Component {
                     </List>
                 </Drawer>
             </div>
-            // <nav className="navbar">
-            //     <div className="navbar-items">
-            //         <div className={"navbar-tabs" + (this.state.home ? " active-tab" : "")} onClick={() => this.handleClick("home")}>HOME</div>
-            //         <div className={"navbar-tabs" + (this.state.about ? " active-tab" : "")} onClick={() => this.handleClick("about")}>ABOUT</div>
-            //         <div className={"navbar-tabs" + (this.state.contact ? " active-tab" : "")} onClick={() => this.handleClick("contact")}>CONTACT</div>
-            //     </div>
-            // </nav>
         );
     }
 }
