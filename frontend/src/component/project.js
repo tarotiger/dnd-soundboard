@@ -1,5 +1,6 @@
 import React from "react";
 import { CSSTransition, SwitchTransition, TransitionGroup } from 'react-transition-group'; 
+import ClampLines from 'react-clamp-lines';
 import "./project.css";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight"
@@ -71,7 +72,7 @@ export default class Project extends React.Component {
                     combine multiple tracks to create their desired ambient sound for any 
                     situation. Instant sounds which add flavour to the soundboard are also 
                     readily available. A search bar is included to allow users to easily locate 
-                    their desired sounds. 
+                    their desired sounds.
                 </ProjectContainer>
             </CSSTransition>
             

@@ -1,26 +1,27 @@
 .container-navigator {
-    display: table;
+    display: inline-grid;
+    grid-template-columns: auto auto;
     margin: auto;
     padding: 0px 30px;
 }
 
 .container-navigator-button-left {
-    display: table-cell !important;
     cursor: pointer;
-    left: 30px;
+    grid-column: 1;
+    grid-template-columns: min-content auto;
+    max-height: 700px;
+    padding: 300px 0px;
     position: relative;
     transition: 0.3s;
-    vertical-align: middle !important;
     width: 50px;
 }
 
 .container-navigator-button-right {
-    display: table-cell !important;
     cursor: pointer;
-    left: -30px;
+    grid-column: 3;
+    padding: 300px 0px;
     position: relative; 
     transition: 0.3s;
-    vertical-align: middle !important;
     width: 50px;
 }
 

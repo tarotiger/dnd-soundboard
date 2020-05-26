@@ -25,7 +25,7 @@ a {
 .projects-container {
     background-color: white;
     display: inline-block; 
-    grid-template-columns: max-content;
+    grid-column: 2;
     padding: 25px;
     margin: 30px;
     vertical-align: top;
@@ -46,6 +46,13 @@ a {
 
 .project-image {
     max-width: 100%;
+    vertical-align: middle;
+}
+
+.project-image-helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
 }
 
 .project-info {
@@ -60,8 +67,18 @@ a {
     margin-top: 15px;
 }
 
-.project-summary {
+.project-summary { 
+    display: -webkit-box;
+    overflow: hidden;
+    padding-bottom: 5px;
+    transition: 0.3s;
     width: inherit;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+} 
+
+.project-summary-full {
+    display: inline !important;
 }
 
 .project-thumbnail {
@@ -71,4 +88,5 @@ a {
     background-repeat: no-repeat;
     overflow: hidden;
     width: 350px;
+    height: 350px;
 }
