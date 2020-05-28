@@ -120,7 +120,7 @@ class NavBar extends React.Component {
         return (
             <div className={classes.root}>
                 <AppBar
-                    color="transparent"
+                    color="inherit"
                     position="fixed"
                     className={clsx(classes.appBar, {
                         [classes.appBarShift]: this.state.drawer

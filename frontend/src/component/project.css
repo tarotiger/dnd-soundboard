@@ -8,6 +8,7 @@
 .container-navigator-button-left {
     cursor: pointer;
     grid-column: 1;
+    grid-row: 2;
     grid-template-columns: min-content auto;
     max-height: 700px;
     padding: 300px 0px;
@@ -19,6 +20,8 @@
 .container-navigator-button-right {
     cursor: pointer;
     grid-column: 3;
+    grid-row: 2;
+    grid-template-columns: min-content auto;
     padding: 300px 0px;
     position: relative; 
     transition: 0.3s;
@@ -28,6 +31,25 @@
 .container-navigator-button-right:hover,
 .container-navigator-button-left:hover {
     background-color: rgba(163, 163, 163, 0.5);
+}
+
+.dot {
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    height: 5px;
+    margin: 0px 10px;
+    width: 5px;
+}
+
+.dot-active {
+    background-color: black;
+}
+
+.dot-container {
+    grid-column: 2;
+    grid-row: 1;
+    margin: auto;
 }
 
 .fade-enter{
@@ -49,4 +71,10 @@
     opacity: 0;
     transform: scale(0.9);
     transition: opacity 300ms, transform 300ms;
+}
+
+.projects {
+    display: flex;
+    grid-column: 2;
+    grid-row: 2;
 }

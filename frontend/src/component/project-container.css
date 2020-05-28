@@ -5,6 +5,7 @@ a {
 
 .button-container {
     height: 50px;
+    padding-top: 8px;
     width: 100%;
 }
 
@@ -19,15 +20,14 @@ a {
 
 .button-github-only {
     height: 50px;
+    margin-top: 8px;
     width: 100%;
 }
 
 .projects-container {
     background-color: white;
     display: inline-block; 
-    grid-column: 2;
     padding: 25px;
-    margin: 30px;
     vertical-align: top;
 }
 
@@ -70,7 +70,6 @@ a {
 .project-summary { 
     display: -webkit-box;
     overflow: hidden;
-    padding-bottom: 5px;
     transition: 0.3s;
     width: inherit;
     -webkit-line-clamp: 3;
