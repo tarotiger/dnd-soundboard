@@ -1,3 +1,7 @@
+ul {
+    list-style: none;
+}
+
 .about-img {
     height: auto;
     margin: 20px;
@@ -5,7 +9,7 @@
 }
 
 .about-text {
-    margin-left: 25%;
-    margin-right: 25%;
+    max-width: 500px;
+    margin: auto !important;
     text-align: center;
 }
