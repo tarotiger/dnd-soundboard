@@ -20,7 +20,7 @@ a {
 
 .button-github-only {
     height: 50px;
-    margin-top: 8px;
+    margin-top: 8px !important;
     width: 100%;
 }
 

@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import { TextField, Button, Snackbar } from "@material-ui/core";
+import { Alert } from '@material-ui/lab';
 import "./contact.css";
 
 export default class Contact extends React.Component {
@@ -12,7 +14,8 @@ export default class Contact extends React.Component {
             message: '',
             sending: false,
             sent: false,
-            status: ''
+            status: '',
+            error: false 
         }
     }
 
@@ -49,15 +52,27 @@ export default class Contact extends React.Component {
         .then((response) => {
             if (response.data.status === 'success') {
                 this.setState({
+                    sending: false, 
                     sent: true,
                     status: 'Message sent successfully!'
                 })
                 this.resetForm();
             } else {
                 this.setState({
-                    status: 'Message failed to send...'
+                    error: true,
+                    sending: false,
+                    sent: true, 
+                    status: `${response.data.status}`
                 })
             }
+        })
+        .catch((error) => {
+            this.setState({
+                error: true,
+                sending: false, 
+                sent: true,
+                status: `${error}`
+            })
         })
     }
 
@@ -73,33 +88,59 @@ export default class Contact extends React.Component {
     render() {
         return(
             <React.Fragment>
-                {this.state.sending ? (
-                    <div className="contact-form">
-                        <img alt="sending-gif" className="sending-gif" src={require("../assets/sending.gif")}></img>
-                    </div> 
+                { this.state.sending ? (
+                    <form className="contact-form">
+                        <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+                    </form>
                 ) : (
                     <React.Fragment>
                         <form className="contact-form" onSubmit={this.handleSubmit.bind(this)} method="POST">
-                            <p className="form-text">Drop me a message below</p>
-                            <div className="form-group">
-                                <label htmlFor="name">Name</label>
-                                <input type="text" className="form-control" value={this.state.name} onChange={this.onNameChange.bind(this)} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="exampleInputEmail1">Email address</label>
-                                <input type="email" className="form-control" aria-describedby="emailHelp" value={this.state.email} onChange={this.onMailChange.bind(this)} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="message">Message</label>
-                                <textarea className="form-control form-message" rows="5" value={this.state.message} onChange={this.onMessageChange.bind(this)} />
-                            </div>
-                            <button type="submit" className="btn-lg btn-primary">Submit</button>
+                            <TextField 
+                                className="form-textfield"
+                                fullWidth
+                                id="filled-basic"
+                                label="Name" 
+                                onChange={this.onNameChange.bind(this)}
+                                variant="outlined"/>
+                            <TextField 
+                                className="form-textfield"
+                                fullWidth
+                                id="filled-basic" 
+                                label="Email" 
+                                onChange={this.onMailChange.bind(this)}
+                                type="email"
+                                variant="outlined" />
+                            <TextField 
+                                className="form-textfield"
+                                fullWidth
+                                id="filled-basic"
+                                label="Message" 
+                                multiline
+                                onChange={this.onMessageChange.bind(this)}
+                                rows="4"
+                                variant="outlined" />
+                            <Button
+                                color="primary"
+                                size="large"
+                                type="submit">
+                                    Submit
+                            </Button>
                         </form>
-                        {this.state.sent ? (
-                            <p className="mail-status">{this.state.status}</p>
-                        ) : (
-                            null
-                        )}
+                        <Snackbar 
+                            open={this.state.sent} 
+                            autoHideDuration={5000}>
+                            { this.state.error ? (
+                                <Alert severity="error"
+                                    autoHideDuration={5000}>
+                                    {this.state.status}
+                                </Alert>
+                            ) : (
+                                <Alert severity="success" 
+                                    autoHideDuration={5000}>
+                                    Mail successfully sent!
+                                </Alert>
+                            )}      
+                        </Snackbar>
                     </React.Fragment>
                 )}
             </React.Fragment>

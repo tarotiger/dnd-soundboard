@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@material-ui/core"
 import "./project-container.css";
 
 export default class ProjectContainer extends React.Component {
@@ -33,17 +34,24 @@ export default class ProjectContainer extends React.Component {
                     </div>
                     {this.props.host ? (
                         <div className="button-container">
-                            <button onClick={() => window.open(this.props.projectUrl)}>
+                            <Button 
+                                variant="outlined" 
+                                onClick={() => window.open(this.props.projectUrl)}>
                                 Try it
-                            </button>
-                            <button onClick={() => window.open(this.props.githubUrl)}>
+                            </Button>
+                            <Button 
+                                variant="outlined"
+                                onClick={() => window.open(this.props.githubUrl)}>
                                 <img alt="github" className="project-github" src={require("../assets/github.jpg")}></img>
-                            </button>
+                            </Button>
                         </div>
                     ) : (
-                        <button className="button-github-only" onClick={() => window.open(this.props.githubUrl)}>
+                        <Button 
+                            variant="outlined"
+                            className="button-github-only" 
+                            onClick={() => window.open(this.props.githubUrl)}>
                             <img alt="github" className="project-github" src={require("../assets/github.jpg")}></img>
-                        </button>
+                        </Button>
                     )}
                 </div>
             </div>

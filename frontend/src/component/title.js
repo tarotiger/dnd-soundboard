@@ -6,7 +6,7 @@ export default class Title extends React.Component {
         return(
             <div className="title-wrapper">
                 <div className="title" onClick={() => this.props.handleClick("home")}>
-                    <p className="title-name">Kenneth Lu</p>
+                    <p className="title-name">Kenneth Lu.</p>
                 </div>
             </div>  
         );

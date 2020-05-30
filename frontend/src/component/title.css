@@ -1,6 +1,4 @@
 .title {
-    background-color: black;
-    font-family: Montserrat;
     margin: auto;
     position: relative;
     text-align: center;
@@ -11,7 +9,7 @@
 
 .title-name {
     animation: type 2s steps(60, end);
-    color: whitesmoke;
+    color: black;
     font-family: monospace;
     font-size: 3em;
     font-weight: 500;
