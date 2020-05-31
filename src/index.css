@@ -148,12 +148,6 @@ ul li figure:hover .icon-image {
 	z-index: 10;
 }
 
-.close-button:hover {
-	right: 2px;
-	height: 20px;
-	width: 20px;
-}
-
 .playing-soundboard-button {
 	background-color: inherit;
 }

@@ -1,6 +1,6 @@
 // Returns the name of the mp3 file from import 
 const getMP3Name = (importName) => {
-	return importName.split("/")[3].split(".")[0];
+	return importName.split("/")[4].split(".")[0];
 }
 
 const createInstantSound = (src) => {
@@ -62,4 +62,4 @@ const createAudioElement = (src) => {
 	}
 }
 
-export default {createInstantSound, createAudioElement, getMP3Name}
+export { createInstantSound, createAudioElement, getMP3Name }
