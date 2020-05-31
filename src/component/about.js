@@ -7,7 +7,9 @@ export default class About extends React.Component {
     render() {
         return(
             <React.Fragment>
-                <img alt="about-me" className="about-img" src={require("../assets/placeholder.jpg")}></img>
+                <div className="about-img-container">
+                    <img alt="about-me" className="about-img" src={require("../assets/placeholder.jpg")}></img>
+                </div>
                 <Typography
                     variant="h5">
                     Introduction
