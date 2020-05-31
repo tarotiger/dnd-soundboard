@@ -1,31 +1,13 @@
 # dnd-soundboard
 
-![Sounboard](Example.PNG)
+![Soundboard](Example.PNG)
 
-Soundboard for role-playing game, D&amp;D developed in ReactJS, Bootstrap.
+Soundboard for role-playing game, D&amp;D developed in ReactJS with UI supported by Bootstrap.
 
-Users are able to mix and match different arrays of sounds to produce the desired sound for the scenario. 
-
-Users can search for any available sound in the soundboard.
+Users are able to mix and match different combination of sounds to produce the desired ambient sound. Audio is rendered dynamically to drastically reduce load times.
 
 ---
 
-# Installation
-Install required node_modules with
-```` bash
-npm install
-````
-
----
-
-# Run 
-To use this application, simply run
-```` bash 
-npm start
-````
-
----
-
-# Credits 
+# Credit
 [`rc-slider`](//github.com/schrodinger/rc-slider)  
 [Boss + Carriage + Combat(Plains) + Festival + Goblin Cave + Haunted + Lost Mine + Medieval Town + Tavern + Woodland Campsite](//tabletopaudio.com)
