@@ -60,7 +60,7 @@ export default class Project extends React.Component {
                 classNames="fade">
                 <ProjectContainer
                     url={"https://kenxmel.github.io/dnd-soundboard/"}
-                    projectUrl={"http://dnd-soundboard.herokuapp.com/"}
+                    projectUrl={"https://kenxmel.github.io/dnd-soundboard/"}
                     githubUrl={"https://github.com/kenxmel/dnd-soundboard"}
                     img={dnd}
                     key={"dnd"}

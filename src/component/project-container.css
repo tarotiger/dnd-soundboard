@@ -68,6 +68,7 @@ a {
 }
 
 .project-summary { 
+    cursor: pointer;
     display: -webkit-box;
     overflow: hidden;
     transition: 0.3s;
@@ -77,6 +78,7 @@ a {
 } 
 
 .project-summary-full {
+    cursor: text !important;
     display: inline !important;
 }
 
@@ -86,6 +88,7 @@ a {
     background-position: center center;
     background-repeat: no-repeat;
     overflow: hidden;
+    position: relative;
     width: 350px;
     height: 350px;
 }

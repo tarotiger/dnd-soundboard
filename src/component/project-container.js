@@ -12,9 +12,11 @@ export default class ProjectContainer extends React.Component {
     }
 
     handleClick() {
-        this.setState({
-            show: !this.state.show
-        })
+        if (this.state.show === false) {
+            this.setState({
+                show: true
+            })
+        }
     }
 
     render() {
