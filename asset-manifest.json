@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/dnd-soundboard/static/css/main.2dbd1288.chunk.css",
-    "main.js": "/dnd-soundboard/static/js/main.afa8d48d.chunk.js",
-    "main.js.map": "/dnd-soundboard/static/js/main.afa8d48d.chunk.js.map",
+    "main.css": "/dnd-soundboard/static/css/main.2a823885.chunk.css",
+    "main.js": "/dnd-soundboard/static/js/main.af683b9a.chunk.js",
+    "main.js.map": "/dnd-soundboard/static/js/main.af683b9a.chunk.js.map",
     "runtime-main.js": "/dnd-soundboard/static/js/runtime-main.5d50adb6.js",
     "runtime-main.js.map": "/dnd-soundboard/static/js/runtime-main.5d50adb6.js.map",
     "static/css/2.c88bcea4.chunk.css": "/dnd-soundboard/static/css/2.c88bcea4.chunk.css",
-    "static/js/2.7f753d64.chunk.js": "/dnd-soundboard/static/js/2.7f753d64.chunk.js",
-    "static/js/2.7f753d64.chunk.js.map": "/dnd-soundboard/static/js/2.7f753d64.chunk.js.map",
+    "static/js/2.d773cbdb.chunk.js": "/dnd-soundboard/static/js/2.d773cbdb.chunk.js",
+    "static/js/2.d773cbdb.chunk.js.map": "/dnd-soundboard/static/js/2.d773cbdb.chunk.js.map",
     "index.html": "/dnd-soundboard/index.html",
-    "precache-manifest.11098cfac4f0ab1501876590038ba52b.js": "/dnd-soundboard/precache-manifest.11098cfac4f0ab1501876590038ba52b.js",
+    "precache-manifest.7664780c4c74bd8f6a7a627b79eee5de.js": "/dnd-soundboard/precache-manifest.7664780c4c74bd8f6a7a627b79eee5de.js",
     "service-worker.js": "/dnd-soundboard/service-worker.js",
     "static/css/2.c88bcea4.chunk.css.map": "/dnd-soundboard/static/css/2.c88bcea4.chunk.css.map",
-    "static/css/main.2dbd1288.chunk.css.map": "/dnd-soundboard/static/css/main.2dbd1288.chunk.css.map",
-    "static/js/2.7f753d64.chunk.js.LICENSE.txt": "/dnd-soundboard/static/js/2.7f753d64.chunk.js.LICENSE.txt",
+    "static/css/main.2a823885.chunk.css.map": "/dnd-soundboard/static/css/main.2a823885.chunk.css.map",
+    "static/js/2.d773cbdb.chunk.js.LICENSE.txt": "/dnd-soundboard/static/js/2.d773cbdb.chunk.js.LICENSE.txt",
     "static/media/Boss.png": "/dnd-soundboard/static/media/Boss.70d406db.png",
     "static/media/Boss.mp3": "/dnd-soundboard/static/media/Boss.b6009bc3.mp3",
     "static/media/Carriage.mp3": "/dnd-soundboard/static/media/Carriage.15279c2b.mp3",
@@ -62,8 +62,8 @@
   "entrypoints": [
     "static/js/runtime-main.5d50adb6.js",
     "static/css/2.c88bcea4.chunk.css",
-    "static/js/2.7f753d64.chunk.js",
-    "static/css/main.2dbd1288.chunk.css",
-    "static/js/main.afa8d48d.chunk.js"
+    "static/js/2.d773cbdb.chunk.js",
+    "static/css/main.2a823885.chunk.css",
+    "static/js/main.af683b9a.chunk.js"
   ]
 }
