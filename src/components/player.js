@@ -88,9 +88,6 @@ export default class Player extends React.Component {
 	}
 
 	onClick(i) {
-		console.log(i);
-		console.log("audio[i]", getMP3Name(audio[i]));
-
 		let sound = this.state.sound;
 		let init = this.state.init.slice();
 		let key = getMP3Name(audio[i]);
@@ -207,19 +204,8 @@ export default class Player extends React.Component {
 	}
 
 	render() {
-		console.log(this.state.sound);
-		console.log(this.state.position);
-		let numPlaying = 0; 
 		let index = -1; 
 		let availableSound = [];
-
-
-		// Counts the number of tracks currently playing 
-		this.state.animated.forEach((element) => {
-			if (element === true) {
-				numPlaying++;
-			}
-		})
 
 		return (
 			<div className="main">
@@ -245,16 +231,6 @@ export default class Player extends React.Component {
 				<Container>
 					<PContainer>
 						{Object.keys(this.state.sound).map((key, value) => {
-							if (numPlaying === 0 && index === 0) {
-								return(
-									<p 
-										className="font-weight-light" 
-										key={"no-sound"}> 
-										No sounds currently playing... 
-									</p>
-								);
-							}
-
 							if (this.state.sound[key] === null) {
 								return(null);
 							}
@@ -265,8 +241,6 @@ export default class Player extends React.Component {
 									break;
 								}
 							}
-
-							console.log("key", key, "position", index);
 							
 							const isPlaying = this.state.sound[key].playing;
 							const volume = this.state.sound[key].soundVolume.gain.value * VolScale;
