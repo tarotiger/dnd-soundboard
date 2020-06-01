@@ -26,8 +26,6 @@ import cheer from '../assets/Cheer.mp3';
 
 const audio = [rain, fire, cave, night, festival, haunted, combat, thunder, carriage, goblincave, lostmine, woodland, tavernmusic, medievaltown, tavern, boss];
 
-const VolScale = 100 / 3;
-
 // SOUND CATEGORIES 
 const instant = [sword, megu, explosion, cheer];
 const nature = [rain, fire, thunder, woodland];
@@ -65,7 +63,7 @@ export default class Player extends React.Component {
 	constructor(props) {
 		super(props);
 
-		let animated = Array(this.props.len).fill(false);
+		let active = Array(this.props.len).fill(false);
 		let init = Array(this.props.len).fill(false);
 		let sound = {};
 
@@ -80,7 +78,7 @@ export default class Player extends React.Component {
 		})
 
 		this.state = {
-			animated: animated,
+			active: active,
 			init: init, 
 			position: position,
 			sound: sound
@@ -93,11 +91,6 @@ export default class Player extends React.Component {
 		let key = getMP3Name(audio[i]);
 
 		if (this.state.init[i]) {
-			// Check if context is in a suspended state 
-			if (sound[key].soundContext === 'suspended') {
-				sound[key].soundContext.resume();
-			}
-
 			// Toggle audio status 
 			if (sound[key].playing) {
 				sound[key].sound.pause();
@@ -123,21 +116,21 @@ export default class Player extends React.Component {
 	openSoundSlider(i) {
 		this.onClick(i);
 
-		let animated = this.state.animated.slice();
+		let active = this.state.active.slice();
 
-		if (animated[i]) {
+		if (active[i]) {
 			setTimeout(() => {
-				animated[i] = !animated[i];
+				active[i] = !active[i];
 
 				this.setState({
-					animated: animated
+					active: active
 				})
 			}, 350);
 		} else {
-			animated[i] = !animated[i];
+			active[i] = !active[i];
 
 			this.setState({
-				animated: animated
+				active: active
 			})
 		}
 		
@@ -158,12 +151,12 @@ export default class Player extends React.Component {
 	closeSoundSlider(i) {
 		this.pause(i);
 
-		let animated = this.state.animated.slice();
+		let active = this.state.active.slice();
 
-		animated[i] = !animated[i];
+		active[i] = !active[i];
 
 		this.setState({
-			animated: animated
+			active: active
 		})
 	}
 
@@ -172,7 +165,7 @@ export default class Player extends React.Component {
 		let key = getMP3Name(audio[i]);
 
 		sound[key].volume = event;
-		sound[key].soundVolume.gain.value = event / VolScale;
+		sound[key].sound.volume = event/100;
 
 		this.setState({
 			sound: sound
@@ -193,7 +186,7 @@ export default class Player extends React.Component {
 		let init = Array(audio.length).fill(false);
 		
 		this.setState({
-			animated: Array(this.props.len).fill(false),
+			active: Array(this.props.len).fill(false),
 			init: init,
 			sound: sound
 		})
@@ -243,12 +236,12 @@ export default class Player extends React.Component {
 							}
 							
 							const isPlaying = this.state.sound[key].playing;
-							const volume = this.state.sound[key].soundVolume.gain.value * VolScale;
+							const volume = this.state.sound[key].volume;
 
-							if (this.state.animated[index]) {
+							if (this.state.active[index]) {
 								return(
 									<SoundBar
-										animated={this.state.animated[index]}
+										animated={this.state.active[index]}
 										playing={isPlaying}
 										name={key}
 										handleClick={(index) => this.onClick(index)}
@@ -294,7 +287,7 @@ export default class Player extends React.Component {
 									}
 								}
 								
-								if (!this.state.animated[pos] && this.props.displayed[pos]) {
+								if (!this.state.active[pos] && this.props.displayed[pos]) {
 									availableSound.push(
 									<IconContainer
 										name={getMP3Name(soundimport)}
