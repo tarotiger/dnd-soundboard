@@ -7,9 +7,10 @@ import ProjectContainer from './project-container.js';
 import dnd from '../assets/dnd.png';
 import uni from '../assets/uni.png';
 import webdev from '../assets/webdev.png';
+import homepage from '../assets/homepage.png';
 
 
-const PROJ_NUM = 3; 
+const PROJ_NUM = 4; 
 
 export default class Project extends React.Component {
     constructor(props) {
@@ -65,7 +66,7 @@ export default class Project extends React.Component {
                     img={dnd}
                     key={"dnd"}
                     title={"D&D Soundboard"}
-                    lang={"React, Heroku, Web Audio API, rc-slider"}
+                    lang={"React, rc-slider"}
                     host={true}>
                     Soundboard for the biggest tabletop role-playing game Dungeon & Dragons.
                     Comes with an interactive and simple user interface which allows users to 
@@ -99,7 +100,7 @@ export default class Project extends React.Component {
                     CSS.
                 </ProjectContainer>
             </CSSTransition>
-        } else {
+        } else if (this.state.project[2]) {
             page = 
             <CSSTransition
                 key={2}
@@ -124,6 +125,27 @@ export default class Project extends React.Component {
                     For more info and projects visit the github.
                 </ProjectContainer>
             </CSSTransition>
+        } else if (this.state.project[3]) {
+            page = 
+            <CSSTransition
+                key={3}
+                addEndListener={(node, done) => {
+                    node.addEventListener("transitionend", done, false);
+                }}
+                classNames="fade">
+                <ProjectContainer
+                    url={"https://github.com/kenxmel/homepage"}
+                    githubUrl={"https://github.com/kenxmel/homepage"}
+                    img={homepage}
+                    key={"homepage"}
+                    title={"Homepage"}
+                    lang={"React, material-ui, react-transition-group, Express"}
+                    host={false}>
+                    Interactive portfolio implemented with ReactJS and hosted using GitHub Pages. Uses React UI Framework material-ui
+                    for a modern and mobile-friendly website. Uses the animation library react-transition-group to handle animations. Backed with Express
+                    for mail handling and response
+                </ProjectContainer>
+            </CSSTransition>
         }
         
         return(
@@ -140,6 +162,9 @@ export default class Project extends React.Component {
                     </span>
                     <span 
                     className={`dot ${this.state.project[2] ? "dot-active" : ""}`}>
+                    </span>
+                    <span 
+                    className={`dot ${this.state.project[3] ? "dot-active" : ""}`}>
                     </span>
                 </div>
                 <div className="projects">
