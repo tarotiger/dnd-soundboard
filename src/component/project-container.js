@@ -31,7 +31,7 @@ export default class ProjectContainer extends React.Component {
                 <div className="project-description">
                     <div className="project-name">{this.props.title}</div>
                     <p className="project-info">{this.props.lang}</p>
-                    <div className={`project-summary ${this.state.show ? "project-summary-full" : ""}`} onClick={() => this.handleClick()}>
+                    <div className={`${this.state.show ? "project-summary-full" : "project-summary"}`} onClick={() => this.handleClick()}>
                         {this.props.children}
                     </div>
                     {this.props.host ? (

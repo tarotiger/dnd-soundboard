@@ -69,17 +69,32 @@ a {
 
 .project-summary { 
     cursor: pointer;
-    display: -webkit-box;
+    /* display: -webkit-box; */
+    height: 72px;
     overflow: hidden;
+    position: relative;
     transition: 0.3s;
     width: inherit;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;  
+    /* -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;   */
 } 
 
 .project-summary-full {
     cursor: text !important;
     display: inline !important;
+    height: auto;
+    width: inherit;
+}
+
+.project-summary:after {
+    content: "";
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30%;
+    height: 1.2em;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
 }
 
 .project-thumbnail {
