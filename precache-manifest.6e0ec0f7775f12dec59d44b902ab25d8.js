@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3d487b34e160d9876845bb8a87f60e18",
+    "revision": "8531b47d3e0f0aa2f745ab2b94bbe339",
     "url": "/dnd-soundboard/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/dnd-soundboard/static/css/2.c88bcea4.chunk.css"
   },
   {
-    "revision": "234deac7167feb6cfe7c",
+    "revision": "9151406dd9aeae66b936",
     "url": "/dnd-soundboard/static/css/main.2a823885.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/dnd-soundboard/static/js/2.d773cbdb.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "234deac7167feb6cfe7c",
-    "url": "/dnd-soundboard/static/js/main.37284939.chunk.js"
+    "revision": "9151406dd9aeae66b936",
+    "url": "/dnd-soundboard/static/js/main.7d427c3a.chunk.js"
   },
   {
     "revision": "bf5e175adc867e060e65",
