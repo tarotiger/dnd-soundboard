@@ -4,28 +4,14 @@ const getMP3Name = (importName) => {
 }
 
 const createInstantSound = (src) => {
-	// Dynamically generate audio elements 
-	let audioDOM = document.createElement("audio");
-	audioDOM.src = src;
-	audioDOM.type = "audio/*";
-
-	// Uses Web Audio API to increase volume sensitivity 
-	const audio = new AudioContext();
-	const track = audio.createMediaElementSource(audioDOM);
-	track.loop = true;
-
-	const gainNode = audio.createGain();
-	gainNode.gain.value = 1.5;
-
-	track.connect(gainNode);
-	gainNode.connect(audio.destination);
+	let audio = new Audio(src);
+	audio.volume = 0.8;
 
 	const soundElement = {
-		sound: audioDOM,
-		soundVolume: gainNode,
-		soundContext: audio,
+		sound: audio,
 		volume: 100,
-		name: getMP3Name(src)
+		name: getMP3Name(src),
+		playing: false
 	}
 
 	return soundElement;
@@ -34,11 +20,11 @@ const createInstantSound = (src) => {
 const createAudioElement = (src) => {
 	let audio = new Audio(src);
 	audio.loop = true; 
-	audio.volume = 0.5;
+	audio.volume = 1;
 
 	return {
 		sound: audio,
-		volume: 50,
+		volume: 100,
 		name: getMP3Name(src),
 		playing: false
 	}
