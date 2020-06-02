@@ -49,7 +49,7 @@ export default class Contact extends React.Component {
 
         axios({
             method: "POST",
-            url: "https://ec2-3-21-55-21.us-east-2.compute.amazonaws.com:8080/send",
+            url: "http://ec2-3-21-55-21.us-east-2.compute.amazonaws.com:443/send",
             data: this.state 
         })
         .then((response) => {
@@ -141,7 +141,10 @@ export default class Contact extends React.Component {
                 </Snackbar>
                 <Snackbar 
                     open={this.state.sent} 
-                    autohideduration={5000}>
+                    autohideduration={5000}
+                    onClose={() => this.setState({
+                        sent: false
+                    })}>
                     { this.state.error ? (
                         <Alert severity="error"
                             autohideduration={5000}>
