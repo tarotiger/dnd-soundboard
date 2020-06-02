@@ -49,7 +49,7 @@ export default class Contact extends React.Component {
 
         axios({
             method: "POST",
-            url: "http://localhost:5000/send",
+            url: "http://ec2-3-21-55-21.us-east-2.compute.amazonaws.com:8080/send",
             data: this.state 
         })
         .then((response) => {
@@ -134,22 +134,22 @@ export default class Contact extends React.Component {
                 </form>
                 <Snackbar
                     open={this.state.sending}
-                    autoHideDuration={5000}>
+                    autohideduration={5000}>
                     <Alert severity="info">
                         Sending...
                     </Alert>
                 </Snackbar>
                 <Snackbar 
                     open={this.state.sent} 
-                    autoHideDuration={5000}>
+                    autohideduration={5000}>
                     { this.state.error ? (
                         <Alert severity="error"
-                            autoHideDuration={5000}>
+                            autohideduration={5000}>
                             {this.state.status}
                         </Alert>
                     ) : (
                         <Alert severity="success" 
-                            autoHideDuration={5000}>
+                            autohideduration={5000}>
                             Mail successfully sent!
                         </Alert>
                     )}      
