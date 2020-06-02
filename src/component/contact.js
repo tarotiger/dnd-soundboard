@@ -49,7 +49,7 @@ export default class Contact extends React.Component {
 
         axios({
             method: "POST",
-            url: "http://ec2-3-21-55-21.us-east-2.compute.amazonaws.com:8080/send",
+            url: "https://ec2-3-21-55-21.us-east-2.compute.amazonaws.com:8080/send",
             data: this.state 
         })
         .then((response) => {
