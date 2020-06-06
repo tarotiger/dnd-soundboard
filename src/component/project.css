@@ -31,7 +31,6 @@
 .container-navigator-button-right:hover,
 .container-navigator-button-left:hover {
     background-color: rgba(240, 240, 240, 0.5);
-    width: 70px;
 }
 
 .dot {
