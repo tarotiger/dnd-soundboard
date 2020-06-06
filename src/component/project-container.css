@@ -45,6 +45,7 @@ a {
 }
 
 .project-image {
+    border: 1px solid black;
     max-width: 100%;
     vertical-align: middle;
 }

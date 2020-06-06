@@ -25,14 +25,10 @@ export default class projectsPage extends React.Component {
         }
         tabs[tab] = true; 
 
-        console.log(tabs);
-        console.log("Tabs is", tab);
-
         this.setState(tabs);
     }
 
     render() {
-        // TODO: Test case 
         let myText;
         let myPage; 
         if (this.state.projects === true) {

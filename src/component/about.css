@@ -2,10 +2,15 @@ ul {
     list-style: none;
 }
 
+.about {
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
 .about-img-container {
     height: auto;
     margin: auto;
-    width: 40%;
+    width:  300px;
 }
 
 .about-img {
@@ -16,5 +21,5 @@ ul {
 .about-text {
     max-width: 500px;
     margin: auto !important;
-    text-align: center;
+    text-align: left;
 }
