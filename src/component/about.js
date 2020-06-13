@@ -2,13 +2,33 @@ import React from "react";
 import "typeface-roboto";
 import "./about.css";
 import { Typography } from "@material-ui/core";
+import { Skeleton } from '@material-ui/lab';
 
 export default class About extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            loading: true
+        }
+    }
+
+    doneLoad() {
+        this.setState({
+            loading: false 
+        })
+    }
+
     render() {
         return(
-            <React.Fragment>
+            <div className="about">
+                {this.state.loading ? (
+                    <Skeleton className="about-img" variant="rect" height={300} width={300}/>
+                ): (
+                    null
+                )}
                 <div className="about-img-container">
-                    <img alt="about-me" className="about-img" src={require("../assets/placeholder.jpg")}></img>
+                    <img alt="about-me" className="about-img" onLoad={() => this.doneLoad()} src={require("../assets/placeholder.jpg")}></img>
                 </div>
                 <Typography
                     variant="h5">
@@ -42,11 +62,12 @@ export default class About extends React.Component {
                     variant="body1">
                     I have worked with and have experience in these languages:
                 </Typography>
+                <br></br>
                 <Typography
                     variant="button">
                     [HTML, CSS, JS] [ReactJS] [C] [Java] [SQL]
                 </Typography> 
-            </React.Fragment>
+            </div>
         );
     }
 }
