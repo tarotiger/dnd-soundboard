@@ -1,25 +1,26 @@
-ul {
-    list-style: none;
-}
-
 .about {
-    margin-left: 25%;
-    margin-right: 25%;
-}
-
-.about-img-container {
-    height: auto;
-    margin: auto;
-    width:  300px;
-}
-
-.about-img {
-    margin: auto;
-    width: 100%;
-}
-
-.about-text {
-    max-width: 500px;
-    margin: auto !important;
     text-align: left;
+    max-width: 500px;
+    margin: auto;
+}
+
+blockquote {
+    background-color: rgb(243, 243, 243);
+    color: #333;
+    margin-top: 5px;
+    padding-left: 3em;
+    border-left: 0.5em #ccc solid;
+}
+
+td {
+    border: 1px solid #666;
+}
+
+th {
+    background-color: #aaa;
+    padding: 5px;
+}
+
+tr {
+    border: 1px solid #aaa;
 }

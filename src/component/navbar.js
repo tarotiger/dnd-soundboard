@@ -71,6 +71,7 @@ class NavBar extends React.Component {
 
     handleClick(tab) {
         this.props.handleClick(tab);
+        this.handleDrawerClose();
 
         if (tab === "projects") {
             this.setState({
