@@ -1,4 +1,5 @@
 # homepage
+Interactive portfolio created using react with the help of [material-ui](https://material-ui.com/) and hosted using [Express](https://expressjs.com/)
 
 ## Prerequisites 
   * [npm](https://github.com/npm/cli) 
