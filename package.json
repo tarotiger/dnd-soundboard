@@ -1,4 +1,4 @@
-{ 
+{
   "homepage": "http://kenxmel.github.io/homepage",
   "name": "homepage",
   "version": "0.1.0",
@@ -13,7 +13,7 @@
     "axios": "^0.19.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^3.4.3",
     "react-transition-group": "^4.4.1",
     "typeface-roboto": "0.0.75"
   },
