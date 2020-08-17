@@ -69,7 +69,7 @@ export default class projectsPage extends React.Component {
         return (
             <React.Fragment>
                 <NavBar handleClick={this.switchTabs.bind(this)}/>
-                <Title handleClick={this.switchTabs.bind(this)}/>
+                {/* <Title handleClick={this.switchTabs.bind(this)}/> */}
                 <Container title={myText}>
                     <TransitionGroup>
                         <SwitchTransition>
