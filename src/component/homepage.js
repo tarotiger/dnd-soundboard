@@ -5,7 +5,6 @@ import Contact from './contact.js'
 import Container from "./container.js";
 import NavBar from "./navbar.js";
 import Project from "./project.js";
-import Title from "./title.js";
 
 export default class projectsPage extends React.Component {
     constructor(props) {
